@@ -1,5 +1,7 @@
 # Human-like optimization
 
+A package for path planning and trajectory optimization on Franka Emika Panda robot
+
 Schematization of the whole process:
 * Point-to-point trajectory
 * Wp in cartesian space
