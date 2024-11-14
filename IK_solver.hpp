@@ -441,3 +441,6 @@ std::array<double, 7> franka_IK_EE_CC ( std::array<double, 16> O_T_EE_array,
 }
 
 #endif // FRANKA_IK_HE_HPP
+
+
+
