@@ -1,0 +1,52 @@
+div {
+    display: flex;
+}
+div.main {
+    display: block;
+    width: 50%;
+}
+div.main2 {
+    display: block;
+}
+#tests {
+    height: 50%;
+}
+#btnsec {
+    height: 100;
+    text-align: center;
+}
+#btn {
+    width: 500;
+    margin: 0 auto;
+}
+p {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.title {
+    padding-left: 40;
+}
+button {
+    height: 30;
+    width: 15%;
+    margin-top: 10;
+    margin-left: 30;
+    margin-right: 30;
+    float: right;
+}
+button.out {
+    width: 120;
+}
+button.traj {
+    float: left;
+    width: 20%;
+}
+.ndata {
+    width: 10%;
+}
+.dataname {
+    width: 70%;
+}
+.inst {
+    width: 90%;
+}
