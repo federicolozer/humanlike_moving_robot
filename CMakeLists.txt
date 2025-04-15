@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.2)
-project(path_planning)
+project(humanlike_moving_robot)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Eigen3 REQUIRED)
+find_package(PythonLibs 3.8 REQUIRED)
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -43,6 +44,7 @@ catkin_package(
 ###########
 
 include_directories(include
+  ${PYTHON_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
   ../neural_network/include
@@ -66,6 +68,26 @@ target_link_libraries(computeWorkspace
   ${catkin_LIBRARIES}
 )
 
+# dataset_creator
+add_executable(dataset_creator
+  src/dataset_creator.cpp
+)
+
+target_link_libraries(dataset_creator
+  ${PYTHON_LIBRARIES}
+  ${catkin_LIBRARIES}
+)
+
+# test_creator
+add_executable(test_creator
+  src/test_creator.cpp
+)
+
+target_link_libraries(test_creator
+  ${PYTHON_LIBRARIES}
+  ${catkin_LIBRARIES}
+)
+
 
 
 
@@ -74,8 +96,12 @@ target_link_libraries(computeWorkspace
 #############
 
 catkin_install_python(PROGRAMS
-  scripts/cl_main.py
-  scripts/gui_main.py
+  scripts/human_poses.py
+  scripts/human_poses_test.py
+  scripts/NN_engine.py
+  scripts/NN_trainer.py
+  scripts/pose_plotter.py
+  scripts/main.py
   scripts/controller.py
   scripts/Panda_trajectory_planner.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

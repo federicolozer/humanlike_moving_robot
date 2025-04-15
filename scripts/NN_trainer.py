@@ -14,8 +14,8 @@ from copy import deepcopy
 model = None
 stamp = True
 config = {}
-model_path = rospkg.RosPack().get_path("neural_network") + "/data/models/NN_model.pth"
-json_path = rospkg.RosPack().get_path("neural_network") + "/data/models/hyperparams.json"
+model_path = rospkg.RosPack().get_path("neural_network") + "/data/model/NN_model.pth"
+json_path = rospkg.RosPack().get_path("neural_network") + "/data/model/hyperparams.json"
 
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>path_planning</name>
-  <version>0.0.0</version>
-  <description>The path_planning package</description>
+  <name>humanlike_moving_robot</name>
+  <version>1.0.0</version>
+  <description>The humanlike_moving_robot package</description>
 
 
   <maintainer email="panda@todo.todo">panda</maintainer>
