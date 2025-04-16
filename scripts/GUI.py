@@ -111,7 +111,6 @@ def exec():
     res = main(data)
     if data == "quit":
         print("end")
-        quit()
     return jsonify(result=res)
 
 

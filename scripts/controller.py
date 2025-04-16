@@ -152,10 +152,10 @@ def exec_trajectory(t, q, ttype):
     
     wait_execution((t[-1]-t[0]))
 
-    if status == 3:
-        print("\nTrajectory executed correctly")
-    else:
-        print(f"\nTrajectory ended with an error:\n{error_log}")
+    #if status == 3:
+    #    print("\nTrajectory executed correctly")
+    #else:
+    #    print(f"\nTrajectory ended with an error:\n{error_log}")
 
     result_subscriber.unregister()
 
@@ -237,6 +237,23 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
         t0 = None
     
 
+
+
+def controller_server():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server_socket.bind(('localhost', 8081))
+
+    while True:
+        data, addr = server_socket.recvfrom(1024) # buffer size is 1024 bytes
+        print("received message:", data)
+
+
+if __name__ == "__main__":
+    rospy.init_node("main")
+
+    print("Ready")
+
+    controller_server()
 
     
 

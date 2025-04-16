@@ -47,7 +47,7 @@ function restoreMsg() {
 
 function executeTrajectory(val) {
     document.getElementById('msg').innerHTML = "Executing trajectory...";
-    
+
     $.ajax({
         url: '/sendExecuteTrajectoryRequest',
         type: 'SEND',
@@ -59,6 +59,11 @@ function executeTrajectory(val) {
             }
             else if (response.result == 0) {
                 document.getElementById('msg').innerHTML = "No trajectory found";
+            }
+            else if (response.result == -1) {
+                document.getElementById('msg').innerHTML = "Shutting down...";
+                alert(response.result);
+                window.close();
             }
             else {
                 document.getElementById('msg').innerHTML = "Error: failed to execute trajectory";

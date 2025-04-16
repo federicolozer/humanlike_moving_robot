@@ -27,9 +27,7 @@ q_actual_array = np.array([0, -0.785398163397, 0, -2.3561944899, 0, 1.5707963267
 pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 yaml_path = f"{pack_path}/config/mode.yaml"
 
-#rospy.init_node("main")
 model = nn.createModel()
-
 
 
 
@@ -51,6 +49,29 @@ def IK_fromQuater_client(data):
     client_socket.close()
 
     return response
+
+
+
+def controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype):
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    print("t_arm = ", t_arm)
+    print("q_arm = ", q_arm)
+
+    client_socket.sendto(b"1", ('localhost', 8081))
+    
+    client_socket.close()
+
+
+
+def readState_client():
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    client_socket.sendto(b"2", ('localhost', 8081))
+    
+    client_socket.close()
+
+    return
 
 
 
@@ -94,17 +115,11 @@ def sel_mode():
     return mode
 
 
-
-
-
-
-
-rospy.init_node("main")
  
 def main(traj):
-    print("Traj = ", traj)
+    print(traj)
     if traj == "quit":
-        quit()
+        return -1
 
     mode = sel_mode()
     t_arm = []
@@ -128,6 +143,7 @@ def main(traj):
                 q7_real_array.append(float(line[7]))
     except:
         print("Selected trajectory does not exist..")
+        return 0
         
     with open(f"{pack_path}/data/trajectory/{traj}/gripper.json", "r") as file:
         trajectory = json.load(file)
@@ -218,10 +234,10 @@ def main(traj):
         print("\n===============================================================")
         print("\tTrajectory planning")
         print("===============================================================")
-
         print(f"Solutions found: {cnt}/{len(trajectory['waypoints'])}")
+        print("---------------------------------------------------------------")
 
-        #controller_client((t_arm, q_arm, t_gripper, q_gripper, ttype))
+        #controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype)
         controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
     
     return 1
