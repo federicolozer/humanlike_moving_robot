@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.10.2)
 project(humanlike_moving_robot)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "-std=c++17 -lstdc++fs")  
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
@@ -11,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   #scipy
 )
 
+#find_package(Filesystem REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PythonLibs 3.8 REQUIRED)
 
@@ -47,7 +52,6 @@ include_directories(include
   ${PYTHON_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
-  ../neural_network/include
 )
 
 # IK server

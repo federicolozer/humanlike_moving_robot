@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 # coding=utf-8
- 
-import sys
-sys.path.append('/home/lozer/franka_emika_ws/src/path_planning/scripts')
 
 from flask import Flask, render_template, request, jsonify
+import rospy
 from gen_json import gen_json
 import webbrowser
 import os
 from main import main
+import rospkg
 
 app = Flask(__name__)
-
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
 
 
 def callDatasetCreator(data):
-    msg = "rosrun neural_network dataset_creator"
+    msg = "rosrun humanlike_moving_robot dataset_creator"
     if len(data) > 0:
         for elem in data:
             msg += f" {elem}"
@@ -30,13 +29,13 @@ def callDatasetCreator(data):
 
 
 def callTestCreator(data):
-    msg = "rosrun neural_network test_creator"
+    msg = "rosrun humanlike_moving_robot test_creator"
     res = 0
     if len(data) > 0:
         for elem in data:
             msg_tmp = (f"{msg} {elem}")
 
-            path = f"/home/lozer/franka_emika_ws/src/path_planning/data/trajectory/{elem[5:-4]}"
+            path = f"{pack_path}/data/trajectory/{elem[5:-4]}"
 
             if not os.path.exists(path):
                 os.makedirs(path)
@@ -50,7 +49,7 @@ def callTestCreator(data):
 
 
 def callTrainNN():
-    msg = "rosrun neural_network NN_trainer.py"
+    msg = "rosrun humanlike_moving_robot NN_trainer.py"
     res = os.system(msg)
 
     return res
@@ -110,12 +109,15 @@ def exec():
     data = request.get_json()
     data = data[5:-4]
     res = main(data)
+    if data == "quit":
+        print("end")
+        quit()
     return jsonify(result=res)
 
 
 
 
-if __name__ == '__main__':   
+if __name__ == '__main__':
     if not os.environ.get("WERKZEUG_RUN_MAIN"):
         webbrowser.open_new('http://127.0.0.1:5000/')
 

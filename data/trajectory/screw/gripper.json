@@ -9,23 +9,15 @@
 			"action": "close"
 		},
 		{
-			"t": 1.06667,
+			"t": 1.08333,
 			"action": "open"
 		},
 		{
-			"t": 1.13333,
+			"t": 1.16667,
 			"action": "close"
 		},
 		{
-			"t": 1.2,
-			"action": "open"
-		},
-		{
-			"t": 1.26667,
-			"action": "close"
-		},
-		{
-			"t": 1.4,
+			"t": 1.41667,
 			"action": "open"
 		},
 		{
@@ -33,43 +25,35 @@
 			"action": "close"
 		},
 		{
-			"t": 2.06667,
+			"t": 2.08333,
 			"action": "open"
 		},
 		{
-			"t": 3.06667,
+			"t": 3.08333,
 			"action": "close"
 		},
 		{
-			"t": 3.46667,
+			"t": 3.5,
 			"action": "open"
 		},
 		{
-			"t": 4.2,
+			"t": 4.41667,
 			"action": "close"
 		},
 		{
-			"t": 4.26667,
+			"t": 4.83333,
 			"action": "open"
 		},
 		{
-			"t": 4.4,
+			"t": 5.83333,
 			"action": "close"
 		},
 		{
-			"t": 4.86667,
+			"t": 6.25,
 			"action": "open"
 		},
 		{
-			"t": 5.8,
-			"action": "close"
-		},
-		{
-			"t": 6.26667,
-			"action": "open"
-		},
-		{
-			"t": 7.26667,
+			"t": 7.25,
 			"action": "close"
 		}
 	]

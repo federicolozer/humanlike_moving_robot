@@ -5,7 +5,7 @@ import rospy
 import os
 
 if __name__ == '__main__':
-    rospy.init_node('controller')
+    rospy.init_node('gravity_comp')
 
     gravity = [0, 0, 0]
     if not rospy.search_param('/mode') == None:

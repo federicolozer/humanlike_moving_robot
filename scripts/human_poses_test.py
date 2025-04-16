@@ -5,9 +5,10 @@ import csv
 import numpy as np
 from copy import deepcopy
 from math import pi
-import os
+import rospkg
 
-path = "/home/lozer/franka_emika_ws/src/neural_network/data/tracking_data"
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
+path = f"{pack_path}/data/tracking_data"
 base_height = 0.7
 
 

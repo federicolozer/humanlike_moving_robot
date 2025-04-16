@@ -5,8 +5,9 @@ import os
 import json
 import rospkg
 
-data_path = rospkg.RosPack().get_path("neural_network") + "/data/tracking_data"
-json_path = rospkg.RosPack().get_path("user_interface") + "/data/tracking_data/data.json"
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
+data_path = f"{pack_path}/data/tracking_data"
+json_path = f"{pack_path}/data/tracking_data/data.json"
 
 
 

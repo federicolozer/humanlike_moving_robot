@@ -8,7 +8,7 @@ from sensor_msgs.msg import JointState
 from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryActionResult
 from moveit_msgs.msg import ExecuteTrajectoryActionGoal, ExecuteTrajectoryActionResult
 from franka_gripper.msg import MoveActionGoal, GraspActionGoal, MoveGoal, GraspGoal
-from path_planning.srv import IK_fromFrame, IK_fromQuater
+from humanlike_moving_robot.srv import IK_fromFrame, IK_fromQuater
 import Panda_trajectory_planner as planner
 from progress.bar import IncrementalBar as Bar
 import time
@@ -121,8 +121,8 @@ def homing(q_last, ttype):
     while status == None:
         pass
     
-    if not status == 3:
-        print(f"Homing ended with an error:\n{error_log}")
+    #if not status == 3:
+    #    print(f"Homing ended with an error:\n{error_log}")
 
     result_subscriber.unregister()
 

@@ -12,7 +12,7 @@
 
 void printFrame(Eigen::Matrix4d O_T_EE_tmp) {
     std::array<float, 3> euler = frameToEuler(O_T_EE_tmp); 
-    std::string msg1 = "rosrun gazebo_ros spawn_model -file /home/lozer/franka_emika_ws/src/path_planning/data/models/frame/model.sdf -sdf -model frame ";
+    std::string msg1 = "rosrun gazebo_ros spawn_model -file /home/lozer/franka_emika_ws/src/humanlike_moving_robot/data/models/frame/model.sdf -sdf -model frame ";
     std::stringstream ss;
     ss << "-x " << O_T_EE_tmp(0, 3) << " -y " << O_T_EE_tmp(1, 3) << " -z " << O_T_EE_tmp(2, 3) << " -R " << euler[0]<<  " -P " << euler[1] << " -Y " << euler[2];
     std::string msg2 = ss.str();

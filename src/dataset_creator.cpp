@@ -10,7 +10,8 @@
 #include <ros/package.h>
 
 boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
-std::string yaml_path = ros::package::getPath("path_planning") + "/config/mode.yaml";
+std::string pack_path = ros::package::getPath("humanlike_moving_robot");
+std::string yaml_path = pack_path+"/config/mode.yaml";
 
 
 bool IK_check(Eigen::Map< Eigen::Matrix4d > O_T_EE, double q7, int mode) {
@@ -141,13 +142,11 @@ int execPython(PyObject* pModule, Eigen::Matrix4d frame, std::ofstream* file, st
 int main(int argc, char** argv) {
     std::ofstream file;
 
-    file.open("/home/lozer/franka_emika_ws/src/neural_network/data/dataset/main.csv");
+    file.open(pack_path+"/data/dataset/main.csv");
     file << "Qx, Qy, Qz, Qw, x, y, z, q7" << std::endl;
 
     Py_Initialize();
     
-    PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/lozer/franka_emika_ws/src/neural_network/scripts')");
     PyObject* pModule = PyImport_ImportModule("human_poses");
 
     Eigen::Matrix4d frame;

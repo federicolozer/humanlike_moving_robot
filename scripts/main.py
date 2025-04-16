@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import sys
-sys.path.append('/home/lozer/franka_emika_ws/src/neural_network/scripts')
-sys.path.append('/home/lozer/franka_emika_ws/src/user_interface/scripts')
-
 import rospy
 import NN_engine as nn
 from copy import deepcopy
@@ -28,9 +24,10 @@ q_gripper = []
 inputData_array = []
 q7_array = []
 q_actual_array = np.array([0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397])
-yaml_path = rospkg.RosPack().get_path("path_planning") + "/config/mode.yaml"
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
+yaml_path = f"{pack_path}/config/mode.yaml"
 
-rospy.init_node("main")
+#rospy.init_node("main")
 model = nn.createModel()
 
 
@@ -54,38 +51,6 @@ def IK_fromQuater_client(data):
     client_socket.close()
 
     return response
-
-
-
-def UI_client():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #client_socket.sendto(b"1", ('localhost', 8081))
-
-    client_socket.connect(('localhost', 8081))
-
-    client_socket.send(b"1")
-
-    client_socket.close()
-
-
-
-def UI_server():
-    global server_socket, new_socket
-
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.settimeout(None)
-    server_socket.bind(('localhost', 8082))
-
-    server_socket.listen(5)
-
-    new_socket, addr = server_socket.accept()
-
-    msg = new_socket.recv(1024)
-
-    new_socket.close()
-    server_socket.close()
-
-    return msg.decode()
 
 
 
@@ -129,8 +94,18 @@ def sel_mode():
     return mode
 
 
+
+
+
+
+
+rospy.init_node("main")
  
 def main(traj):
+    print("Traj = ", traj)
+    if traj == "quit":
+        quit()
+
     mode = sel_mode()
     t_arm = []
     q_arm = []
@@ -139,10 +114,11 @@ def main(traj):
     inputData_array = []
     q7_array = []
     q7_real_array = []
-    q_actual_array = controller.readJointStates()
+    q_actual_array = np.array([0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397])
+    #q_actual_array = controller.readJointStates()
     
     try:
-        with open(f'/home/lozer/franka_emika_ws/src/neural_network/data/dataset/{traj}.csv') as file:
+        with open(f"{pack_path}/data/dataset/{traj}.csv") as file:
             doOnce = True
             for line in csv.reader(file):
                 if doOnce:
@@ -153,7 +129,7 @@ def main(traj):
     except:
         print("Selected trajectory does not exist..")
         
-    with open(f'/home/lozer/franka_emika_ws/src/path_planning/data/trajectory/{traj}/gripper.json', "r") as file:
+    with open(f"{pack_path}/data/trajectory/{traj}/gripper.json", "r") as file:
         trajectory = json.load(file)
 
         for waypoint in trajectory["waypoints"]:
@@ -164,7 +140,7 @@ def main(traj):
             t_gripper.append(waypoint["t"]*4)
             q_gripper.append(q_array)
     
-    with open(f'/home/lozer/franka_emika_ws/src/path_planning/data/trajectory/{traj}/arm.json', "r") as file:
+    with open(f"{pack_path}/data/trajectory/{traj}/arm.json", "r") as file:
         trajectory = json.load(file)
 
         t_array = []
@@ -235,7 +211,7 @@ def main(traj):
         diff /= len(q7_array)
         rmse = np.sqrt(diff)
 
-        print(f"RMSE: {(rmse):>0.4f}rad - {(rmse/(2*2.8973)*100):>0.1f}%")
+        print(f"RMSE: {(rmse):>0.4f} rad - {(rmse/(2*2.8973)*100):>0.1f}%")
 
         # Trajectory planning ----------------------------------------------------------------
 

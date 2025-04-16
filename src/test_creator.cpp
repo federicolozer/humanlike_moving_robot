@@ -9,9 +9,10 @@
 #include <Python.h>
 #include <ros/package.h>
 
-int skip = 4;
+int skip = 5;
 boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
-std::string yaml_path = ros::package::getPath("path_planning") + "/config/mode.yaml";
+std::string pack_path = ros::package::getPath("humanlike_moving_robot");
+std::string yaml_path = pack_path+"/config/mode.yaml";
 
 
 bool IK_check(Eigen::Map< Eigen::Matrix4d > O_T_EE, double q7, int mode) {
@@ -63,7 +64,7 @@ int createTest(PyObject* pModule, PyObject* pHumanPoses, Eigen::Matrix4d frame, 
     else if (param == "ceil") {
         mode = 2;
     }           
-
+    
     double t0;
     int doOnce = 1;
     int cnt = 0;
@@ -169,8 +170,6 @@ int main(int argc, char** argv) {
 
     Py_Initialize();
     
-    PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/lozer/franka_emika_ws/src/neural_network/scripts')");
     PyObject* pModule = PyImport_ImportModule("human_poses_test");
 
     Eigen::Matrix4d frame;
@@ -178,11 +177,11 @@ int main(int argc, char** argv) {
     if (pModule) {
         if (argc = 2) {
             std::string tracking_data = argv[1];
-            file1.open("/home/lozer/franka_emika_ws/src/neural_network/data/dataset/"+tracking_data.substr(5,tracking_data.length()-9)+".csv");
+            file1.open(pack_path+"/data/dataset/"+tracking_data.substr(5,tracking_data.length()-9)+".csv");
             file1 << "Qx, Qy, Qz, Qw, x, y, z, q7" << std::endl;
-            file2.open("/home/lozer/franka_emika_ws/src/path_planning/data/trajectory/"+tracking_data.substr(5,tracking_data.length()-9)+"/arm.json");
+            file2.open(pack_path+"/data/trajectory/"+tracking_data.substr(5,tracking_data.length()-9)+"/arm.json");
             file2 << "{\n\t\"waypoints\":[" << std::endl;
-            file3.open("/home/lozer/franka_emika_ws/src/path_planning/data/trajectory/"+tracking_data.substr(5,tracking_data.length()-9)+"/gripper.json");
+            file3.open(pack_path+"/data/trajectory/"+tracking_data.substr(5,tracking_data.length()-9)+"/gripper.json");
             file3 << "{\n\t\"waypoints\":[\n\t\t{\n\t\t\t\"t\": 0,\n\t\t\t\"action\": \"open\"\n\t\t},";
 
             execPython(pModule, frame, &file1, &file2, &file3, tracking_data);
