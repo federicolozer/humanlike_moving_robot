@@ -36,7 +36,6 @@ def IK_fromQuater_client(data):
     client_socket.connect(('localhost', 8080))
 
     client_socket.send(b"1")
-
     request = np.array(data, dtype=np.double).tobytes()
     client_socket.send(request)
 
@@ -55,23 +54,25 @@ def IK_fromQuater_client(data):
 def controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    print("t_arm = ", t_arm)
-    print("q_arm = ", q_arm)
+    data = np.array(t_arm, dtype=np.double).tobytes()
+    client_socket.sendto(str(len(data)).encode(), ('localhost', 8081))
+    client_socket.sendto(data, ('localhost', 8081))
 
-    client_socket.sendto(b"1", ('localhost', 8081))
+    data = np.array(q_arm, dtype=np.double).tobytes()
+    client_socket.sendto(str(len(data)).encode(), ('localhost', 8081))
+    client_socket.sendto(data, ('localhost', 8081))
+
+    data = np.array(t_gripper, dtype=np.double).tobytes()
+    client_socket.sendto(str(len(data)).encode(), ('localhost', 8081))
+    client_socket.sendto(data, ('localhost', 8081))
+
+    data = np.array(q_gripper, dtype=np.double).tobytes()
+    client_socket.sendto(str(len(data)).encode(), ('localhost', 8081))
+    client_socket.sendto(data, ('localhost', 8081))
+
+    client_socket.sendto(ttype.encode(), ('localhost', 8081))
     
     client_socket.close()
-
-
-
-def readState_client():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    client_socket.sendto(b"2", ('localhost', 8081))
-    
-    client_socket.close()
-
-    return
 
 
 
@@ -117,8 +118,10 @@ def sel_mode():
 
  
 def main(traj):
-    print(traj)
     if traj == "quit":
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        client_socket.sendto(b"0", ('localhost', 8081))
+        client_socket.close()
         return -1
 
     mode = sel_mode()
@@ -237,8 +240,8 @@ def main(traj):
         print(f"Solutions found: {cnt}/{len(trajectory['waypoints'])}")
         print("---------------------------------------------------------------")
 
-        #controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype)
-        controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
+        controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype)
+        #controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
     
     return 1
 

@@ -110,7 +110,7 @@ def exec():
     data = data[5:-4]
     res = main(data)
     if data == "quit":
-        print("end")
+        print("Shutting down...")
     return jsonify(result=res)
 
 

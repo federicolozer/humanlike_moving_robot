@@ -11,7 +11,9 @@
         <arg name="mode" value="$(arg mode)" />
     </include>
 
-    <node name="server" pkg="humanlike_moving_robot" type="IK_server" />
+    <node name="IK_server" pkg="humanlike_moving_robot" type="IK_server" />
+
+    <node name="controller_server" pkg="humanlike_moving_robot" type="controller.py" />
 
     <!-- <node name="client" pkg="humanlike_moving_robot" type="main.py" output="screen" /> -->
 </launch>

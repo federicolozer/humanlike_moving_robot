@@ -62,7 +62,6 @@ function executeTrajectory(val) {
             }
             else if (response.result == -1) {
                 document.getElementById('msg').innerHTML = "Shutting down...";
-                alert(response.result);
                 window.close();
             }
             else {

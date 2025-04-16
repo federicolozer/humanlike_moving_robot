@@ -40,7 +40,6 @@ def CallbackResult(data):
 
 def readJointStates():
     joint_states_subscriber = rospy.Subscriber('/joint_states', JointState, CallbackJointStates) 
-    
     while q_reg == []:
         pass
 
@@ -239,13 +238,57 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
 
 
 
+
+
+
+
 def controller_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server_socket.settimeout(None)
     server_socket.bind(('localhost', 8081))
-
+    
     while True:
-        data, addr = server_socket.recvfrom(1024) # buffer size is 1024 bytes
-        print("received message:", data)
+        data, addr = server_socket.recvfrom(1024)
+        if data.decode() == "0":
+            print("Server shut down")
+            server_socket.close()
+            break
+        
+        arr_len = int(data.decode())
+        res = np.frombuffer(server_socket.recvfrom(arr_len)[0], dtype=np.double)
+        t_arm = list(res)
+
+        data, addr = server_socket.recvfrom(1024)
+        arr_len = int(data.decode())
+        res = np.frombuffer(server_socket.recvfrom(arr_len)[0], dtype=np.double)
+        tmp = []
+        q_arm = []
+        for i in range(len(res)):
+            tmp.append(res[i])
+            if (i+1)%7 == 0:
+                q_arm.append(tmp)
+                tmp = []
+
+        data, addr = server_socket.recvfrom(1024)
+        arr_len = int(data.decode())
+        res = np.frombuffer(server_socket.recvfrom(arr_len)[0], dtype=np.double)
+        t_gripper = list(res)
+
+        data, addr = server_socket.recvfrom(1024)
+        arr_len = int(data.decode())
+        res = np.frombuffer(server_socket.recvfrom(arr_len)[0], dtype=np.double)
+        q_gripper = list(res)
+
+        data, addr = server_socket.recvfrom(1024)
+        ttype = data.decode()
+
+        launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
+
+    server_socket.close()
+
+        
+
+
 
 
 if __name__ == "__main__":
