@@ -11,7 +11,7 @@
 
 ## Updates
 Before starting, it is a good practice to check for updates and to upgrade all the packages in the PC.
-To do that, launch:
+To do that, run the following commands:
 ```shell script
 sudo apt update
 sudo apt upgrade -y
@@ -26,16 +26,16 @@ You can find the whole procedure [**here**](https://wiki.ros.org/melodic/Install
 
 After you have installed ROS, at the end of the page, you were asked to update `rosdep`.
 Since Melodic is and end-of-life distro, will be skipped.
-To include it, launch the following command:
+To include it, run the following command:
 ```shell script
-rosdep update --include-eol-distros
+rosdep update --rosdistro melodic
 ```
 
 
 
 ## Install and build the package
 The first thing to do is to create a ROS workspace.
-If you already have one, you can skip this part, otherwise launch the following commands.
+If you already have one, you can skip this part, otherwise run the following commands.
 
 Firts, source the setup file:
 ```shell script
@@ -56,24 +56,31 @@ Finally, source your new setup file:
 source devel/setup.bash
 ```
 For convenience, you can add the command to your *~/.bashrc* file, to make sure it will be executed every time you open the terminal.
-Ýou can do it launching the following command:
+Ýou can do it running the following command:
 ```shell script
 echo "source ~/your-package-name/devel/setup.bash" >> ~/.bashrc
 ```
 
-To install the package from this GitHub page, go into the *src* folder and launch the git clone command:
+To install the package from this GitHub page, go into the *src* folder and run the git clone command:
 ```shell script
 cd src
 git clone https://github.com/federicolozer/humanlike_moving_robot.git
 ```
 
-To build the package, come back to the workspace folder and launch the make command:
+To build the package, come back to the workspace folder and run the make command:
 ```shell script
 cd ..
 catkin_make -DPYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.8.so -DPYTHON_INCLUDE_DIR:PATH=/usr/include/python3.8
+or
+catkin_make -DPYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.6m.so -DPYTHON_INCLUDE_DIR:PATH=/usr/include/python3.6m
 ```
 
-To automate some processes, launch the following commands:
+To install all the dipendencies, run the following command:
+```shell script
+rosdep install --from-path src --ignore-src --rosdistro melodic
+```
+
+To automate some processes, run the following commands:
 ```shell script
 echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
 echo source /opt/ros/melodic/setup.bash >> ~/.bashrc
@@ -85,7 +92,35 @@ Remember to replace "your-workspace-name" with the real name of your workspace r
 
 
 
-## Install Python3.8
-To run `PyTorch`, you need to install  
+## Install PyTorch
+To run the latest `PyTorch` on *Ubuntu*, you need to install `Python 3`, version >= 3.9.
+Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need to install a previous version of `PyTorch` compatible with that specific `Python 3` version, 2.4.1 for instance.
+
+To install `Python 3.8`, run the following commands:
+```shell script
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.8
+```
+Then, install `pip`:
+```shell script
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3.8 get-pip.py
+```
+
+```shell script
+alias python3=/usr/bin/python3.8
+alias pip3=pip3.8
+```
+
+```shell script
+pip3 install numpy==1.24.1
+```
+
+To install  `PyTorch 2.4.1`, run the following command:
+```shell script
+pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+```
+
 
 
