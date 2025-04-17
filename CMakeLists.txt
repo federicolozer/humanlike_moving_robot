@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.10)
 project(humanlike_moving_robot)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -12,12 +12,12 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   xacro
   roslib
-  #scipy
 )
 
-#find_package(Filesystem REQUIRED)
+find_package(Torch REQUIRED)
+find_package(Sorch REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(PythonLibs 3.8 REQUIRED)
+#find_package(PythonLibs 3.8 REQUIRED)
 
 ## Generate services in the 'srv' folder
 add_service_files(
