@@ -14,8 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
 )
 
-find_package(Torch REQUIRED)
-find_package(Sorch REQUIRED)
+#find_package(Torch REQUIRED)
+#find_package(Scipy REQUIRED)
 find_package(Eigen3 REQUIRED)
 #find_package(PythonLibs 3.8 REQUIRED)
 
