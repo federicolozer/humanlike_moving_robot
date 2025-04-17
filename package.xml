@@ -23,7 +23,7 @@
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>franka_gazebo</depend> 
-  <depend>scipy</depend>
-  <depend>torch</depend>
+  <depend>python-scipy</depend>
+  <depend>python3-torch</depend>
 
 </package>
