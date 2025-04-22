@@ -71,8 +71,6 @@ To build the package, come back to the workspace folder and run the make command
 ```shell script
 cd ..
 catkin_make -DPYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.8.so -DPYTHON_INCLUDE_DIR:PATH=/usr/include/python3.8
-or
-catkin_make -DPYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.6m.so -DPYTHON_INCLUDE_DIR:PATH=/usr/include/python3.6m
 ```
 
 To install all the dipendencies, run the following command:
@@ -80,13 +78,13 @@ To install all the dipendencies, run the following command:
 rosdep install --from-path src --ignore-src --rosdistro melodic
 ```
 
-To automate some processes, run the following commands:
-```shell script
-echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
-echo source /opt/ros/melodic/setup.bash >> ~/.bashrc
-echo source /home/lozer/your-workspace-name/devel/setup.bash >> ~/.bashrc
-```
-Remember to replace "your-workspace-name" with the real name of your workspace repository.
+#To automate some processes, run the following commands:
+#```shell script
+#echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
+#echo source /opt/ros/melodic/setup.bash >> ~/.bashrc
+#echo source /home/lozer/your-workspace-name/devel/setup.bash >> ~/.bashrc
+#```
+#**Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
 
 
@@ -96,12 +94,28 @@ Remember to replace "your-workspace-name" with the real name of your workspace r
 To run the latest `PyTorch` on *Ubuntu*, you need to install `Python 3`, version >= 3.9.
 Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need to install a previous version of `PyTorch` compatible with that specific `Python 3` version, 2.4.1 for instance.
 
-To install `Python 3.8`, run the following commands:
+It is reccomended to work with a `Python 3.8` virtual environment if you have a different version of `Python 3` installed on your PC.
+To install, set up and launch the virtual environment, run the following commands:
+```shell script
+sudo apt install python3.8-venv
+python3.8 -m venv your-venv-name
+source your-venv-name/bin/activate
+```
+**Note:** Remember to replace "your-venv-name" with the real name of your virtual environment.
+
+Instead, if you want to install `Python 3.8` directly on your machine, run the following commands:
 ```shell script
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt install python3.8
 ```
+**Note:** Scripts shebangs will still refer to your old `Python 3` version. You got to change them all or to make `Python 3` refer to `Python 3.8`
+For the second option, run the following commands:
+```shell script
+alias python3=/usr/bin/python3.8
+sudo apt install python3-rospkg
+```
+
 Then, install `pip`:
 ```shell script
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -113,8 +127,13 @@ alias python3=/usr/bin/python3.8
 alias pip3=pip3.8
 ```
 
+Let´s install some other required packages with the following commands:
 ```shell script
+#sudo apt install python3.8-dev
+#sudo pip3 install rospkg
 pip3 install numpy==1.24.1
+pip3 install --upgrade scipy
+pip3 install --upgrade flask
 ```
 
 To install  `PyTorch 2.4.1`, run the following command:
