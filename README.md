@@ -27,6 +27,11 @@ sudo apt upgrade -y
 
 
 ## Install ROS environment
+Before starting, ensure you have installed `rospkg` by running the following command:
+```shell script
+sudo apt install python3-rosropkg  #rivedere
+```   
+
 To work with this package, you need to install ROS Melodic.
 You can find the whole procedure [**here**](https://wiki.ros.org/melodic/Installation/Ubuntu).
 
@@ -35,7 +40,11 @@ Since Melodic is and end-of-life distro, will be skipped.
 To include it, run the following command:
 ```shell script
 rosdep update --rosdistro melodic
-```
+```   
+
+
+
+
 
 
 
@@ -113,12 +122,11 @@ Instead, if you want to install `Python 3.8` directly on your machine, run the f
 ```shell script
 sudo apt install python3.8
 ```
-**Note:** Scripts shebangs will still refer to your old `Python 3` version. You got to change them all or to make `Python 3` refer to `Python 3.8`
-For the second option, run the following commands:
-```shell script
-alias python3=/usr/bin/python3.8
-sudo apt install python3-rospkg
-```
+#**Note:** Scripts shebangs will still refer to your old `Python 3` version. You got to change them all or to make `Python 3` refer to `Python 3.8`
+#For the second option, run the following commands:
+#```shell script
+#alias python3=/usr/bin/python3.8
+#```
 
 Then, install `pip`:
 ```shell script
