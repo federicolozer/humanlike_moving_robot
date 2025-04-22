@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>humanlike_moving_robot</name>
   <version>1.0.0</version>
   <description>The humanlike_moving_robot package</description>
