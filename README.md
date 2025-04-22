@@ -137,7 +137,7 @@ catkin_make -DPYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.8.so 
 
 To install all the dipendencies, run the following command:
 ```shell script
-rosdep install --from-path src --ignore-src --rosdistro melodic
+rosdep install --from-path src --ignore-src --rosdistro melodic -y
 ```
 
 #To automate some processes, run the following commands:
