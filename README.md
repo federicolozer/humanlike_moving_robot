@@ -44,7 +44,7 @@ rosdep update --rosdistro melodic
 
 
 
-## Install PyTorch
+## Install Python 3.8
 To run the latest `PyTorch` on *Ubuntu*, you need to install `Python 3`, version >= 3.9.
 Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need to install a previous version of `PyTorch` compatible with that specific `Python 3` version, 2.4.1 for instance.
 
@@ -78,18 +78,8 @@ alias python3=/usr/bin/python3.8
 alias pip3=pip3.8
 ```
 
-Let´s install some other required packages with the following commands:
-```shell script
-sudo apt install python3.8-dev
-pip3 install numpy==1.24.1
-pip3 install --upgrade scipy
-pip3 install --upgrade flask
-```
 
-To install  `PyTorch 2.4.1`, run the following command:
-```shell script
-pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
-```
+
 
 
 
@@ -147,6 +137,31 @@ rosdep install --from-path src --ignore-src --rosdistro melodic -y
 #echo source /home/lozer/your-workspace-name/devel/setup.bash >> ~/.bashrc
 #```
 #**Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
+
+
+
+
+
+
+
+## Install remaining Python packages
+```shell script
+alias python3=/usr/bin/python3.8
+alias pip3=pip3.8
+```
+
+Let´s install some other required packages with the following commands:
+```shell script
+sudo apt install python3.8-dev
+pip3 install numpy==1.24.1
+pip3 install --upgrade scipy
+pip3 install --upgrade flask
+```
+
+To install  `PyTorch 2.4.1`, run the following command:
+```shell script
+pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+```
 
 
 
