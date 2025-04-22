@@ -23,6 +23,8 @@
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>franka_gazebo</depend> 
+  <depend>moveit</depend>
   <depend>python3-scipy</depend>
+  <depend>python3-flask</depend>
   
 </package>
