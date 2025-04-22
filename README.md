@@ -55,27 +55,30 @@ sudo apt install python3.8-venv
 python3.8 -m venv your-venv-name
 source your-venv-name/bin/activate
 ```
-**Note:** Remember to replace "your-venv-name" with the real name of your virtual environment.
+**Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
 
 Instead, if you want to install `Python 3.8` directly on your machine, run the following commands:
 ```shell script
 sudo apt install python3.8
 ```
-#**Note:** Scripts shebangs will still refer to your old `Python 3` version. You got to change them all or to make `Python 3` refer to `Python 3.8`
-#For the second option, run the following commands:
-#```shell script
-#alias python3=/usr/bin/python3.8
-#```
 
 Then, install `pip`:
 ```shell script
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3.8 get-pip.py
 ```
-
+If you are not able to see `pip` command, add the installation directory to PATH environment variable with the following command:
 ```shell script
-alias python3=/usr/bin/python3.8
-alias pip3=pip3.8
+PATH="/home/your-user-name/.local/bin:$PATH"
+```
+**Note:** Remember to replace "your-user-name" with your real username.
+
+**Warning:** Scripts shebangs will still refer to your old `Python 3` version. You got to make `Python 3` refer to `Python 3.8`.
+You can do it by running the following commands:
+```shell script
+echo "alias python3=python3.8" >> ~/.bashrc
+echo "alias pip3=pip3.8" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 
@@ -156,6 +159,7 @@ sudo apt install python3.8-dev
 pip3 install numpy==1.24.1
 pip3 install --upgrade scipy
 pip3 install --upgrade flask
+pip3 install rospkg
 ```
 
 To install  `PyTorch 2.4.1`, run the following command:
