@@ -6,6 +6,12 @@
 | - | - |
 | **OS** | Ubuntu 18.04 |
 | **ROS Distro** | Melodic Morenia |
+| **Python** | version 3.8 |
+| **Pip** | version 25.0.1 |
+| **Numpy** | version 1.24.1 |
+| **Torch** | version 2.4.1+cpu |
+| **Flask** | version 3.0.3 |
+| **Scipy** | version 1.10.1 |
 
 
 
@@ -105,8 +111,6 @@ source your-venv-name/bin/activate
 
 Instead, if you want to install `Python 3.8` directly on your machine, run the following commands:
 ```shell script
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt install python3.8
 ```
 **Note:** Scripts shebangs will still refer to your old `Python 3` version. You got to change them all or to make `Python 3` refer to `Python 3.8`
@@ -129,7 +133,7 @@ alias pip3=pip3.8
 
 Let´s install some other required packages with the following commands:
 ```shell script
-#sudo apt install python3.8-dev
+sudo apt install python3.8-dev
 #sudo pip3 install rospkg
 pip3 install numpy==1.24.1
 pip3 install --upgrade scipy
