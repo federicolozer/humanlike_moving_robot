@@ -164,7 +164,7 @@ To open the simulation environment and the required servers, run the following c
 roslaunch humanlike_moving_robot main.launch
 ```
 
-To open the GUI with the main program, run the following command:
+To open the GUI with the main program, open another tab and run the following command:
 ```shell script
 rosrun humanlike_moving_robot GUI.py
 ```
