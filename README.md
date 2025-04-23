@@ -15,9 +15,10 @@
   The aim is to reproduce the human behavior on a redundant collaborative robot, like Franka Emika Panda robot.
 </p>
 
-| **Prerequisites** | |
-| - | - |
+## Prerequisites
+
 | **OS** | Ubuntu 18.04 |
+| - | - |
 | **ROS Distro** | Melodic Morenia |
 | **Python** | version 3.8 |
 | **Pip** | version 25.0.1 |
@@ -28,9 +29,9 @@
 | **Rospkg** | version 1.6.0 |
 | **Pyyaml** | version 6.0.2 |
 
-# Instructions to get ready with minimum time-jerk trajectory tests
+## Instructions to get ready with minimum time-jerk trajectory tests
 
-## Updates
+### Updates
 Before starting, it is a good practice to check for updates and to upgrade all the packages in the PC.
 To do that, run the following commands:
 ```shell script
@@ -39,9 +40,7 @@ sudo apt upgrade -y
 ```
 **Note:** You will be asked to enter your password to execute ccommands as super user.
 
-
-
-## Install ROS environment
+### Install ROS environment
 Before starting, ensure you have installed `rospkg` by running the following command:
 ```shell script
 sudo apt install python3-rosropkg  #rivedere
@@ -57,9 +56,7 @@ To include it, run the following command:
 rosdep update --rosdistro melodic
 ```   
 
-
-
-## Install Python dependencies
+### Install Python dependencies
 To run the latest `PyTorch` on *Ubuntu*, you need to install `Python 3`, version >= 3.9.
 Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need to install a previous version of `PyTorch` compatible with that specific `Python 3` version, 2.4.1 for instance.
 
@@ -108,13 +105,7 @@ pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url http
 pip3 install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
 ```
 
-
-
-
-
-
-
-## Install and build the package
+### Install and build the package
 The first thing to do is to create a ROS workspace.
 If you already have one, you can skip this part, otherwise run the following commands.
 
@@ -170,7 +161,23 @@ echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:
 ```
 **Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
+## Start using the package
+To start the demo, you just got to run two commands.
+To open the simulation environment and the required servers, run the following command:
+```shell script
+roslaunch humanlike_moving_robot main.launch
+```
 
+To open the GUI with the main program, run the following command:
+```shell script
+rosrun humanlike_moving_robot GUI.py
+```
+
+Otherwise, you can just run the main program and select the trajectories to perform from command line.
+In this case, run the following command:
+```shell script
+rosrun humanlike_moving_robot main.py
+```
 
 
 
