@@ -41,11 +41,6 @@ sudo apt upgrade -y
 **Note:** You will be asked to enter your password to execute ccommands as super user.
 
 ### Install ROS environment
-Before starting, ensure you have installed `rospkg` by running the following command:
-```shell script
-sudo apt install python3-rosropkg  #rivedere
-```   
-
 To work with this package, you need to install ROS Melodic.
 You can find the whole procedure [**here**](https://wiki.ros.org/melodic/Installation/Ubuntu).
 
