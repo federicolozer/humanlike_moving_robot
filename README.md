@@ -8,10 +8,12 @@
 | **ROS Distro** | Melodic Morenia |
 | **Python** | version 3.8 |
 | **Pip** | version 25.0.1 |
-| **Numpy** | version 1.24.1 |
+| **Numpy** | version 1.24.4 |
 | **Torch** | version 2.4.1+cpu |
 | **Flask** | version 3.0.3 |
 | **Scipy** | version 1.10.1 |
+| **Rospkg** | version 1.6.0 |
+| **Pyyaml** | version 6.0.2 |
 
 
 
@@ -44,7 +46,7 @@ rosdep update --rosdistro melodic
 
 
 
-## Install Python 3.8
+## Install Python dependencies
 To run the latest `PyTorch` on *Ubuntu*, you need to install `Python 3`, version >= 3.9.
 Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need to install a previous version of `PyTorch` compatible with that specific `Python 3` version, 2.4.1 for instance.
 
@@ -79,6 +81,18 @@ You can do it by running the following commands:
 echo "alias python3=python3.8" >> ~/.bashrc
 echo "alias pip3=pip3.8" >> ~/.bashrc
 source ~/.bashrc
+```
+
+Let´s install some other required packages with the following commands:
+```shell script
+sudo apt install python3.8-dev
+pip3 install numpy scipy> flask rospkg pyyaml progress
+```
+
+To install  `PyTorch 2.4.1`, run the following command:
+```shell script
+pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+pip3 install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
 ```
 
 
@@ -122,6 +136,9 @@ cd src
 git clone https://github.com/federicolozer/humanlike_moving_robot.git
 ```
 
+Before building the package, ensure you have the `Eigen` library on your pc.
+Otherwise you can download it and install it from [**here**](https://eigen.tuxfamily.org/index.php?title=Main_Page#Download)
+
 To build the package, come back to the workspace folder and run the make command:
 ```shell script
 cd ..
@@ -133,39 +150,15 @@ To install all the dipendencies, run the following command:
 rosdep install --from-path src --ignore-src --rosdistro melodic -y
 ```
 
-#To automate some processes, run the following commands:
-#```shell script
-#echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
-#echo source /opt/ros/melodic/setup.bash >> ~/.bashrc
-#echo source /home/lozer/your-workspace-name/devel/setup.bash >> ~/.bashrc
-#```
-#**Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
-
-
-
-
-
-
-
-## Install remaining Python packages
+Add your `Python` script folder to `PYTHONPATH` environment variable, to make some files recognize the path of some module to load.
+Run the following command:
 ```shell script
-alias python3=/usr/bin/python3.8
-alias pip3=pip3.8
+echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
 ```
+**Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
-Let´s install some other required packages with the following commands:
-```shell script
-sudo apt install python3.8-dev
-pip3 install numpy==1.24.1
-pip3 install --upgrade scipy
-pip3 install --upgrade flask
-pip3 install rospkg
-```
 
-To install  `PyTorch 2.4.1`, run the following command:
-```shell script
-pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
-```
+
 
 
 
