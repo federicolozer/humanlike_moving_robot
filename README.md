@@ -68,6 +68,8 @@ Instead, if you want to install `Python 3.8` directly on your machine, run the f
 ```shell script
 sudo apt install python3.8
 ```
+**Warning:** This operation is not reccomended because `Python 3` in the scripts shebangs will still refer to your old version, even if you use an alias.
+You can alternatively replace all the shebangs or try to fix the issue in another way.
 
 Then, install `pip3`:
 ```shell script
@@ -83,14 +85,6 @@ If you are not able to see it, add the installation directory to PATH environmen
 PATH="/home/your-user-name/.local/bin:$PATH"
 ```
 **Note:** Remember to replace "your-user-name" with your real username.
-
-**Warning:** Scripts shebangs will still refer to your old `Python 3` version. You got to make `Python 3` refer to `Python 3.8`.
-You can do it by running the following commands:
-```shell script
-echo "alias python3=python3.8" >> ~/.bashrc
-echo "alias pip3=pip3.8" >> ~/.bashrc
-source ~/.bashrc
-```
 
 Let´s install some other required packages with the following commands:
 ```shell script
