@@ -69,12 +69,16 @@ Instead, if you want to install `Python 3.8` directly on your machine, run the f
 sudo apt install python3.8
 ```
 
-Then, install `pip`:
+Then, install `pip3`:
 ```shell script
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3.8 get-pip.py
 ```
-If you are not able to see `pip` command, add the installation directory to PATH environment variable with the following command:
+Check your `pip3` version with the following command:
+```shell script
+pip3 --version
+```
+If you are not able to see it, add the installation directory to PATH environment variable with the following command:
 ```shell script
 PATH="/home/your-user-name/.local/bin:$PATH"
 ```
