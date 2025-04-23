@@ -1,6 +1,19 @@
-# Instructions to get ready with minimum time-jerk trajectory tests
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div align="center">
+  <img src=data/media/logo_ADMiRE.png alt="logo ADMiRE" height=150pt style="display: block; margin: 0 auto">
+  <img src=data/media/logo_Uniud.png alt="logo Uniud" height=150pt style="display: block; margin: 0 auto">
+</div>
 
+# Human-like Moving Robot
 
+<div align="center">
+  <img src=data/media/Panda.png alt="Panda robot" width=50% style="display: block; margin: 0 auto">
+</div>
+
+<p>
+  This is a package developed by ADMiRE Research Center in collaboration with University of Udine.
+  The aim is to reproduce the human behavior on a redundant collaborative robot, like Franka Emika Panda robot.
+</p>
 
 | **Prerequisites** | |
 | - | - |
@@ -15,7 +28,7 @@
 | **Rospkg** | version 1.6.0 |
 | **Pyyaml** | version 6.0.2 |
 
-
+# Instructions to get ready with minimum time-jerk trajectory tests
 
 ## Updates
 Before starting, it is a good practice to check for updates and to upgrade all the packages in the PC.
