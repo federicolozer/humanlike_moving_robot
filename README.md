@@ -120,7 +120,7 @@ Finally, source your new setup file:
 source devel/setup.bash
 ```
 For convenience, you can add the command to your *~/.bashrc* file, to make sure it will be executed every time you open the terminal.
-Ýou can do it running the following command:
+Ýou can do it by running the following command:
 ```shell script
 echo "source ~/your-workspace-name/devel/setup.bash" >> ~/.bashrc
 ```
@@ -148,6 +148,10 @@ rosdep install --from-path src --ignore-src --rosdistro melodic -y
 
 Add your `Python` script folder to `PYTHONPATH` environment variable, to make some files recognize the path of some module to load.
 Run the following command:
+```shell script
+PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\"
+```
+You can add also this command to your *~/.bashrc* file, for the next time, with the following command:
 ```shell script
 echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
 ```
