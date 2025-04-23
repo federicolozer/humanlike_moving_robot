@@ -29,7 +29,7 @@
 | **Rospkg** | version 1.6.0 |
 | **Pyyaml** | version 6.0.2 |
 
-## Instructions to get ready with minimum time-jerk trajectory tests
+## Instructions for the setup
 
 ### Updates
 Before starting, it is a good practice to check for updates and to upgrade all the packages in the PC.
@@ -157,7 +157,7 @@ echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:
 ```
 **Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
-## Start using the package
+## Get started
 To start the demo, you just got to run two commands.
 To open the simulation environment and the required servers, run the following command:
 ```shell script
