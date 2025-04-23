@@ -59,8 +59,8 @@ It is recommended to work with a `Python 3.8` virtual environment if you have a 
 To install, set up and launch the virtual environment, run the following commands:
 ```shell script
 sudo apt install python3.8-venv -y
-python3.8 -m venv your-venv-name
-source your-venv-name/bin/activate
+python3.8 -m venv ~/your-venv-name
+source ~/your-venv-name/bin/activate
 ```
 **Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
 
@@ -166,14 +166,18 @@ roslaunch humanlike_moving_robot main.launch
 
 To open the GUI with the main program, open another tab and run the following command:
 ```shell script
+source ~/your-venv-name/bin/activate
 rosrun humanlike_moving_robot GUI.py
 ```
+**Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
 
 Otherwise, you can just run the main program and select the trajectories to perform from command line.
 In this case, run the following command:
 ```shell script
+source ~/your-venv-name/bin/activate
 rosrun humanlike_moving_robot main.py
 ```
+**Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
 
 
 
