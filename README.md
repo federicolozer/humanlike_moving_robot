@@ -58,7 +58,7 @@ Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need t
 It is recommended to work with a `Python 3.8` virtual environment if you have a different version of `Python 3` installed on your PC.
 To install, set up and launch the virtual environment, run the following commands:
 ```shell script
-sudo apt install python3.8-venv
+sudo apt install python3.8-venv -y
 python3.8 -m venv your-venv-name
 source your-venv-name/bin/activate
 ```
