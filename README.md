@@ -94,7 +94,6 @@ pip3 install numpy scipy flask rospkg pyyaml progress
 
 To install  `PyTorch 2.4.1`, run the following command:
 ```shell script
-pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu
 pip3 install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
 ```
 
