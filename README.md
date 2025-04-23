@@ -55,7 +55,7 @@ rosdep update --rosdistro melodic
 To run the latest `PyTorch` on *Ubuntu*, you need to install `Python 3`, version >= 3.9.
 Since the latest supported version for *Ubuntu 18.04 is `Python 3.8`, you need to install a previous version of `PyTorch` compatible with that specific `Python 3` version, 2.4.1 for instance.
 
-It is reccomended to work with a `Python 3.8` virtual environment if you have a different version of `Python 3` installed on your PC.
+It is recommended to work with a `Python 3.8` virtual environment if you have a different version of `Python 3` installed on your PC.
 To install, set up and launch the virtual environment, run the following commands:
 ```shell script
 sudo apt install python3.8-venv
