@@ -82,7 +82,7 @@ pip3 --version
 ```
 If you are not able to see it, add the installation directory to PATH environment variable with the following command:
 ```shell script
-PATH="/home/your-user-name/.local/bin:$PATH"
+PATH="~/.local/bin:$PATH"
 ```
 **Note:** Remember to replace "your-user-name" with your real username.
 
@@ -149,11 +149,11 @@ rosdep install --from-path src --ignore-src --rosdistro melodic -y
 Add your `Python` script folder to `PYTHONPATH` environment variable, to make some files recognize the path of some module to load.
 Run the following command:
 ```shell script
-PYTHONPATH=$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:$PYTHONPATH
+PYTHONPATH=~/your-workspace-name/src/humanlike_moving_robot/scripts:$PYTHONPATH
 ```
 You can add also this command to your *~/.bashrc* file, for the next time, with the following command:
 ```shell script
-echo PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
+echo PYTHONPATH=\"~/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\" >> ~/.bashrc
 ```
 **Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
