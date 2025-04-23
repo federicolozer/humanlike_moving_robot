@@ -149,7 +149,7 @@ rosdep install --from-path src --ignore-src --rosdistro melodic -y
 Add your `Python` script folder to `PYTHONPATH` environment variable, to make some files recognize the path of some module to load.
 Run the following command:
 ```shell script
-PYTHONPATH=\"\$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYTHONPATH\"
+PYTHONPATH=$HOME/your-workspace-name/src/humanlike_moving_robot/scripts:$PYTHONPATH
 ```
 You can add also this command to your *~/.bashrc* file, for the next time, with the following command:
 ```shell script
