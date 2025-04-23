@@ -123,7 +123,6 @@ For convenience, you can add the command to your *~/.bashrc* file, to make sure 
 Ýou can do it running the following command:
 ```shell script
 echo "source ~/your-workspace-name/devel/setup.bash" >> ~/.bashrc
-source ~/.bashrc
 ```
 **Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
