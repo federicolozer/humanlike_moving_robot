@@ -94,7 +94,7 @@ source ~/.bashrc
 
 Let´s install some other required packages with the following commands:
 ```shell script
-sudo apt install python3.8-dev
+sudo apt install python3.8-dev -y
 pip3 install numpy scipy> flask rospkg pyyaml progress
 ```
 
