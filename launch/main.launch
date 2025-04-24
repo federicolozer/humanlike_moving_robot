@@ -2,6 +2,7 @@
 
 <launch>  
     <arg name="mode" default="ceil" />
+    <arg name="use_real_robot" default="false" />
 
 
 
@@ -9,6 +10,7 @@
 
     <include file="$(find humanlike_moving_robot)/launch/gazebo_panda_control.launch">
         <arg name="mode" value="$(arg mode)" />
+        <arg name="use_real_robot" value="$(arg use_real_robot)" />
     </include>
 
     <node name="IK_server" pkg="humanlike_moving_robot" type="IK_server" />
