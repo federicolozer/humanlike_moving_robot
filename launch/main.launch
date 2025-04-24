@@ -10,7 +10,7 @@
         <arg name="mode" value="$(arg mode)" />
     </include>
 
-    <include file="$(find humanlike_moving_robot)/launch/franka_panda_control.launch" if="$(arg use_real_robot)">
+    <include file="$(find humanlike_moving_robot)/launch/franka_robot_control.launch" if="$(arg use_real_robot)">
         <arg name="mode" value="$(arg mode)" />
     </include>
 
