@@ -10,6 +10,7 @@
     <arg name="world" default="worlds/empty.world" />
     <arg name="controller" default="position_joint_trajectory_controller" />
     <arg name="mode" default="ceil" />
+    <arg name="use_real_robot" default="false" />
     <arg name="use_gui" default="false" />
     <arg name="base_height" default="0.7" />
     <arg name="first_joint_length" default="0.333" />
@@ -69,10 +70,10 @@
 
 
     <!-- Launch franka_control node -->
-    <!-- <include file="$(find franka_control)/launch/franka_control.launch" if="$(arg load_gripper)">
+    <include file="$(find franka_control)/launch/franka_control.launch" if="$(arg use_real_robot)">
         <arg name="robot_ip" value="$(arg robot_ip)" />
         <arg name="load_gripper" value="$(arg load_gripper)" />
-    </include> -->
+    </include>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch" if="$(arg gazebo)">
         <arg name="world_name" value="$(arg world)"/>
