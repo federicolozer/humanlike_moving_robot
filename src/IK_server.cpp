@@ -10,7 +10,7 @@
 #include <ros/package.h>
 
 boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
-std::string yaml_path = ros::package::getPath("path_planning") + "/config/mode.yaml";
+std::string yaml_path = ros::package::getPath("humanlike_moving_robot") + "/config/mode.yaml";
 
 
 boost::array<boost::array<double, 7>, 4> IK_fromQuater(Eigen::Quaterniond quater, std::array<double, 3> O_EE, double q7, int mode, bool dispFrame) {  
