@@ -4,7 +4,7 @@
     <arg name="robot_ip" default="172.16.0.2" />
     <arg name="arm_id" default="panda" />
     <arg name="load_gripper" default="true" />
-    <arg name="controller" default="position_joint_trajectory_controller" />
+    <arg name="controller" default="position_joint_trajectory_controller" />	
     <arg name="mode" default="ceil" />
 
     <param name="m_ee" value="0.76" if="$(arg load_gripper)" />
@@ -23,13 +23,13 @@
 
     <!-- Launch real-robot control -->
 	<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
-
-
+	
+	
 	<!-- Start ROS controllers -->
 	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
 		args="position_joint_trajectory_controller" />
 	
-
+	
 	<!-- <include file="$(dirname)/demo.launch" pass_all_args="true">
 		<arg name="load_robot_description" value="false" />
 		<arg name="moveit_controller_manager" value="simple" />
