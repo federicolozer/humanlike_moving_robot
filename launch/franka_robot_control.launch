@@ -22,18 +22,18 @@
 
 
     <!-- Launch real-robot control -->
-	<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
-	
-	
-	<!-- Start ROS controllers -->
-	<!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
-		args="$(arg controller)" /> -->
-	
-	
-	<!-- <include file="$(dirname)/demo.launch" pass_all_args="true">
-		<arg name="load_robot_description" value="false" />
-		<arg name="moveit_controller_manager" value="simple" />
-	</include> -->
+<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
+
+
+<!-- Start ROS controllers -->
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+	args="$(arg controller)" />
+
+
+<!-- <include file="$(dirname)/demo.launch" pass_all_args="true">
+	<arg name="load_robot_description" value="false" />
+	<arg name="moveit_controller_manager" value="simple" />
+</include> -->
 
 
 
