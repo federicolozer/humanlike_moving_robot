@@ -19,7 +19,11 @@
         <arg name="load_gripper" value="$(arg load_gripper)" />
     </include>
 
-    <node pkg="controller_manager"
+    <include file="$(find panda_moveit_config)/launch/panda_moveit.launch">
+	    <arg name="load_gripper" value="$(arg load_gripper)" />
+    </include>
+
+    <!-- <node pkg="controller_manager"
         type="spawner"
         name="$(arg arm_id)_gripper_spawner"
         if="$(arg load_gripper)"
@@ -32,7 +36,7 @@
         name="$(arg arm_id)_controller_spawner"
         respawn="false" output="screen"
         args="--wait-for initialized franka_state_controller $(arg controller)"
-    />
+    /> -->
 
     <node pkg="humanlike_moving_robot" type="gravity_comp.py" name="gravity_compensation" />
 </launch>
