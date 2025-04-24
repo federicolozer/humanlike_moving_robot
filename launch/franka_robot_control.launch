@@ -26,8 +26,8 @@
 	
 	
 	<!-- Start ROS controllers -->
-	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
-		args="position_joint_trajectory_controller" />
+	<!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+		args="$(arg controller)" /> -->
 	
 	
 	<!-- <include file="$(dirname)/demo.launch" pass_all_args="true">
