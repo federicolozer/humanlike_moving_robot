@@ -104,7 +104,7 @@
         args="--wait-for initialized franka_state_controller $(arg controller)"
     />
     
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" unless="$(arg use_real_robot)" />
 
     <node name="joint_state_publisher" type="joint_state_publisher" pkg="joint_state_publisher">
         <param name="/use_gui" value="$(arg use_gui)"/>
