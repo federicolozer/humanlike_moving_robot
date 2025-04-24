@@ -14,14 +14,28 @@
 
 
 
-    <include file="$(find panda_moveit_config)/launch/franka_control.launch">
+    <!-- <include file="$(find panda_moveit_config)/launch/franka_control.launch">
         <arg name="robot_ip" value="$(arg robot_ip)" />
         <arg name="load_gripper" value="$(arg load_gripper)" />
-    </include>
-
-    <!-- <include file="$(find panda_moveit_config)/launch/panda_moveit.launch">
-	    <arg name="load_gripper" value="$(arg load_gripper)" />
     </include> -->
+
+
+
+    <!-- Launch real-robot control -->
+	<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
+
+
+	<!-- Start ROS controllers -->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+		args="position_joint_trajectory_controller" />
+	
+
+	<!-- <include file="$(dirname)/demo.launch" pass_all_args="true">
+		<arg name="load_robot_description" value="false" />
+		<arg name="moveit_controller_manager" value="simple" />
+	</include> -->
+
+
 
     <node pkg="humanlike_moving_robot" type="gravity_comp.py" name="gravity_compensation" />
 </launch>
