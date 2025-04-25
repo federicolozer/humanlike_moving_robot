@@ -17,6 +17,7 @@ from scipy.signal import savgol_filter
 
 dispFrame = False
 ttype = "follow_joint"
+sd_rate = 10
 t_arm = []
 q_arm = []
 t_gripper = []
@@ -156,7 +157,7 @@ def main(traj):
                 q_array = 0
             elif waypoint["action"] == "open":
                 q_array = 1
-            t_gripper.append(waypoint["t"]*2) ###############
+            t_gripper.append(waypoint["t"]*sd_rate)
             q_gripper.append(q_array)
     
     with open(f"{pack_path}/data/trajectory/{traj}/arm.json", "r") as file:
@@ -207,7 +208,7 @@ def main(traj):
             q_array = optMove(response, q_actual_array)
 
             if not len(q_array) == 0:
-                t_arm.append(t_array[i]*2) ###############
+                t_arm.append(t_array[i]*sd_rate)
                 q_arm.append(q_array)
                 q_actual_array = q_array
                 cnt += 1
