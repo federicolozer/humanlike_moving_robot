@@ -8,7 +8,7 @@
     <arg name="gazebo" default="true" />
     <arg name="debug" default="false" />
     <arg name="world" default="worlds/empty.world" />
-    <arg name="controller" default="position_joint_trajectory_controller" />
+    <arg name="controller" default="effort" />
     <arg name="mode" default="ceil" />
     <arg name="use_gui" default="false" />
     <arg name="base_height" default="0.7" />
@@ -94,7 +94,7 @@
         type="spawner"
         name="$(arg arm_id)_controller_spawner"
         respawn="false" output="screen"
-        args="--wait-for initialized franka_state_controller $(arg controller)"
+        args="--wait-for initialized franka_state_controller $(arg controller)_joint_trajectory_controller"
     />
     
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
