@@ -96,9 +96,9 @@ def homing(q_last, ttype):
     q_diff = readJointStates()
     for i in range(len(q_diff)):
         q_diff[i] -= q_last[i]
-        q_diff[i] = q_diff[i]/(0.2*q_p_lim[i]) + 0.1
+        q_diff[i] = q_diff[i]/(0.3*q_p_lim[i])
     
-    t = [0, max([3, max(q_diff)])]
+    t = [0, max([2, max(q_diff)])]
     q = [q_reg, q_last]
     
     if ttype == "follow_joint":
