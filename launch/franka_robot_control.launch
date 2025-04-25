@@ -14,7 +14,7 @@
 
 	<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
 
-	<node pkg="controller_manager"
+	<node pkg="controller_manager"	
         type="spawner"
         name="$(arg arm_id)_controller_spawner"
         respawn="false" output="screen"
