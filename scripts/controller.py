@@ -224,9 +224,7 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
 
     if len(q_arm) > 0:
         homing(q_arm[0], ttype)
-        print("-------------")
-        time.sleep(5)
-        print("-------------")
+        
         if not len(q_arm) == 1:
             t1 = threading.Thread(target=exec_trajectory, args=(t_arm, q_arm, ttype))
             t2 = threading.Thread(target=exec_grasping, args=(t_gripper, q_gripper))
