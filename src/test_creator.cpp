@@ -9,7 +9,7 @@
 #include <Python.h>
 #include <ros/package.h>
 
-int skip = 5;
+int skip = 10;
 boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
 std::string pack_path = ros::package::getPath("humanlike_moving_robot");
 std::string yaml_path = pack_path+"/config/mode.yaml";
