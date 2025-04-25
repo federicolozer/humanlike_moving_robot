@@ -85,7 +85,8 @@ def wait_execution(t_tot):
     bar.finish()
 
     while status == None:
-        continue
+        pass
+    status = None
     
 
 
@@ -119,7 +120,7 @@ def homing(q_last, ttype):
     print("Homing\n")
     while status == None:
         pass
-    
+    status = None
     #if not status == 3:
     #    print(f"Homing ended with an error:\n{error_log}")
 
@@ -237,6 +238,7 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
             t2.join()
 
         t0 = None
+        status = None
     
 
 
