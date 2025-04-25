@@ -142,7 +142,7 @@ def exec_trajectory(t, q, ttype):
         control_publisher = rospy.Publisher('/execute_trajectory/goal', ExecuteTrajectoryActionGoal, queue_size = 10)
 
         msg = planner.build_execute_trajectory(t, q)
-    print(msg)
+    
     control_publisher.publish(msg)
 
     print("Starting trajectory\n")
