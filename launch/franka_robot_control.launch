@@ -10,32 +10,16 @@
     <param name="m_ee" value="0.76" if="$(arg load_gripper)" />
     <param name="mode" value="$(arg mode)" />
 
-    <!-- <rosparam file="$(find humanlike_moving_robot)/config/controllers.yaml" subst_value="true" /> -->  
 
 
+	<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
 
-    <!-- <include file="$(find panda_moveit_config)/launch/franka_control.launch">
-        <arg name="robot_ip" value="$(arg robot_ip)" />
-        <arg name="load_gripper" value="$(arg load_gripper)" />
-    </include> -->
-
-
-
-    <!-- Launch real-robot control -->
-<include file="$(find franka_control)/launch/franka_control.launch" pass_all_args="true" />
-
-
-<!-- Start ROS controllers -->
-<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
-	args="$(arg controller)" />
-
-
-<!-- <include file="$(dirname)/demo.launch" pass_all_args="true">
-	<arg name="load_robot_description" value="false" />
-	<arg name="moveit_controller_manager" value="simple" />
-</include> -->
-
-
+	<node pkg="controller_manager"
+        type="spawner"
+        name="$(arg arm_id)_controller_spawner"
+        respawn="false" output="screen"
+        args="$(arg controller)"
+    />
 
     <node pkg="humanlike_moving_robot" type="gravity_comp.py" name="gravity_compensation" />
 </launch>
