@@ -17,7 +17,7 @@ from scipy.signal import savgol_filter
 
 dispFrame = False
 ttype = "follow_joint"
-sd_rate = 10
+sd_rate = 4
 t_arm = []
 q_arm = []
 t_gripper = []
