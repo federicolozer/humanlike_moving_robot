@@ -4,7 +4,7 @@
     <arg name="robot_ip" default="172.16.0.2" />
     <arg name="arm_id" default="panda" />
     <arg name="load_gripper" default="true" />
-    <arg name="controller" default="effort_joint_trajectory_controller" />	
+    <arg name="controller" default="effort" />	
     <arg name="mode" default="ceil" />
 
     <param name="m_ee" value="0.76" if="$(arg load_gripper)" />
@@ -18,7 +18,7 @@
         type="spawner"
         name="$(arg arm_id)_controller_spawner"
         respawn="false" output="screen"
-        args="$(arg controller)"
+        args="$(arg controller)_joint_trajectory_controller"
     />
 
     <node pkg="humanlike_moving_robot" type="gravity_comp.py" name="gravity_compensation" />
