@@ -97,7 +97,7 @@ def homing(q_last, ttype):
         q_diff[i] -= q_last[i]
         q_diff[i] = q_diff[i]/(0.2*q_p_lim[i]) + 0.1
     
-    t = [0, min([3, max(q_diff)])]
+    t = [0, max([3, max(q_diff)])]
     q = [q_reg, q_last]
     
     if ttype == "follow_joint":
@@ -142,7 +142,7 @@ def exec_trajectory(t, q, ttype):
         control_publisher = rospy.Publisher('/execute_trajectory/goal', ExecuteTrajectoryActionGoal, queue_size = 10)
 
         msg = planner.build_execute_trajectory(t, q)
-    
+    print(msg)
     control_publisher.publish(msg)
 
     print("Starting trajectory\n")
@@ -237,11 +237,6 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
     
 
 
-
-
-
-
-
 def controller_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server_socket.settimeout(None)
@@ -285,8 +280,6 @@ def controller_server():
         launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
 
     server_socket.close()
-
-        
 
 
 
