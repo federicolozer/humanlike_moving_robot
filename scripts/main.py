@@ -156,7 +156,7 @@ def main(traj):
                 q_array = 0
             elif waypoint["action"] == "open":
                 q_array = 1
-            t_gripper.append(waypoint["t"]*4)
+            t_gripper.append(waypoint["t"]*1) ###############
             q_gripper.append(q_array)
     
     with open(f"{pack_path}/data/trajectory/{traj}/arm.json", "r") as file:
@@ -207,7 +207,7 @@ def main(traj):
             q_array = optMove(response, q_actual_array)
 
             if not len(q_array) == 0:
-                t_arm.append(t_array[i]*4)
+                t_arm.append(t_array[i]*1) ###############
                 q_arm.append(q_array)
                 q_actual_array = q_array
                 cnt += 1
