@@ -101,8 +101,8 @@ def homing(q_last, ttype):
     q = [q_reg, q_last]
     
     if ttype == "follow_joint":
-        result_subscriber = rospy.Subscriber('/position_joint_trajectory_controller/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, CallbackResult)
-        control_publisher = rospy.Publisher('/position_joint_trajectory_controller/follow_joint_trajectory/goal', FollowJointTrajectoryActionGoal, queue_size = 10)
+        result_subscriber = rospy.Subscriber('/effort_joint_trajectory_controller/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, CallbackResult)
+        control_publisher = rospy.Publisher('/effort_joint_trajectory_controller/follow_joint_trajectory/goal', FollowJointTrajectoryActionGoal, queue_size = 10)
 
         msg = planner.build_follow_joint_trajectory(t, q)
 
@@ -132,8 +132,8 @@ def exec_trajectory(t, q, ttype):
     global t0, status, error_log
 
     if ttype == "follow_joint":
-        result_subscriber = rospy.Subscriber('/position_joint_trajectory_controller/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, CallbackResult)
-        control_publisher = rospy.Publisher('/position_joint_trajectory_controller/follow_joint_trajectory/goal', FollowJointTrajectoryActionGoal, queue_size = 10)
+        result_subscriber = rospy.Subscriber('/effort_joint_trajectory_controller/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, CallbackResult)
+        control_publisher = rospy.Publisher('/effort_joint_trajectory_controller/follow_joint_trajectory/goal', FollowJointTrajectoryActionGoal, queue_size = 10)
 
         msg = planner.build_follow_joint_trajectory(t, q)
 
