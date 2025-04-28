@@ -32,6 +32,12 @@
 
 ## Instructions for the setup
 
+This application is only supported for Ubuntu 18.04.
+You can try it on others Distributions but we can't guarantee it will work.
+
+There is also the possibility to run it from a docker container in case you have unmet prerequisites.
+To ### finisc achi
+
 ### Updates
 Before starting, it is a good practice to check for updates and to upgrade all the packages in the PC.
 To do that, run the following commands:
