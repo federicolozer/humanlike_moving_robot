@@ -12,7 +12,8 @@
 
 <p>
   This is a package developed by ADMiRE Research Center in collaboration with University of Udine.
-  The aim is to reproduce the human behavior on a redundant collaborative robot, like Franka Emika Panda robot.
+  The aim is to reproduce the human behavior on a redundant collaborative robot. 
+  This application is designed specifically for Franka Emika Panda robot.
 </p>
 
 ## Prerequisites
