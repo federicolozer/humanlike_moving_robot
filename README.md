@@ -158,26 +158,34 @@ echo PYTHONPATH=\"~/your-workspace-name/src/humanlike_moving_robot/scripts:\$PYT
 **Note:** Remember to replace "your-workspace-name" with the real name of your workspace repository.
 
 ## Get started
-To start the demo, you just got to run two commands.
-To open the simulation environment and the required servers, run the following command:
+To start the demo, make sure you are into the virtual environment.
+Run the following command:
+```shell script
+source ~/your-venv-name/bin/activate
+```
+**Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
+
+Since you have to run two commands, prepare two different tabs, each one with the virtual environment open inside.
+
+In the first tab, to launch the simulation environment and the required servers, run the following command:
 ```shell script
 roslaunch humanlike_moving_robot main.launch
 ```
-
-To open the GUI with the main program, open another tab and run the following command:
+Instead, if you want to use the physic robot, run the following command:
 ```shell script
-source ~/your-venv-name/bin/activate
+roslaunch humanlike_moving_robot main.launch use_real_robot:=true
+```
+
+In the second tab, to open the GUI with the main program, run the following command:
+```shell script
 rosrun humanlike_moving_robot GUI.py
 ```
-**Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
 
 Otherwise, you can just run the main program and select the trajectories to perform from command line.
 In this case, run the following command:
 ```shell script
-source ~/your-venv-name/bin/activate
 rosrun humanlike_moving_robot main.py
 ```
-**Note:** Remember to replace "your-venv-name" with a name of your choise for your virtual environment.
 
 
 
