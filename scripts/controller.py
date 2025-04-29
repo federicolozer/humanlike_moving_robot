@@ -92,11 +92,14 @@ def wait_execution(t_tot):
 
 def homing(q_last, ttype):
     global status, error_log, q_reg, q_p_lim
-    
+
+    print("q_last = ", q_last)
     q_diff = readJointStates()
+    print("q_diff = ", q_diff)
     for i in range(len(q_diff)):
         q_diff[i] -= q_last[i]
         q_diff[i] = q_diff[i]/(0.3*q_p_lim[i])
+    print("q_diff = ", q_diff)
     
     t = [0, max([2, max(q_diff)])]
     print("Waiting ", t, "s")
