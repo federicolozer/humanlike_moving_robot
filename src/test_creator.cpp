@@ -111,10 +111,10 @@ int createTest(PyObject* pModule, PyObject* pHumanPoses, Eigen::Matrix4d frame, 
             double grip_wid = PyFloat_AsDouble(PyList_GetItem(pList, 6));
             grip_wid_array.push_back({grip_wid, t-t0});
             grip_sum += grip_wid;
-            if (!IK_check(O_T_EE, q7, mode)) {
-                cnt++;
-                continue;
-            }
+            //if (!IK_check(O_T_EE, q7, mode)) {
+            //    cnt++;
+            //    continue;
+            //}
 
             // Write line in dataset file
             Eigen::Quaterniond quater = frameToQuaternion(frame);
@@ -141,7 +141,7 @@ int createTest(PyObject* pModule, PyObject* pHumanPoses, Eigen::Matrix4d frame, 
         }
     }
 
-    std::cout << std::endl << "Discarded data due to IK inconsistency: " << cnt*100/PyList_Size(pHumanPoses) << "%" << std::endl;
+    //std::cout << std::endl << "Discarded data due to IK inconsistency: " << cnt*100/PyList_Size(pHumanPoses) << "%" << std::endl;
 }
 
 
