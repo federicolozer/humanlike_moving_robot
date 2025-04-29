@@ -56,15 +56,6 @@ target_link_libraries(IK_server
   ${catkin_LIBRARIES}
 )
 
-# computeWorkspace
-add_executable(computeWorkspace
-  src/computeWorkspace.cpp
-)
-
-target_link_libraries(computeWorkspace
-  ${catkin_LIBRARIES}
-)
-
 # dataset_creator
 add_executable(dataset_creator
   src/dataset_creator.cpp
