@@ -17,7 +17,7 @@ from scipy.signal import savgol_filter
 
 dispFrame = False
 ttype = "follow_joint"
-sd_rate = 4
+sd_rate = 1
 t_arm = []
 q_arm = []
 t_gripper = []
@@ -189,7 +189,7 @@ def main(traj):
 
         # Savitzky-Golay filter -----------------------------------------------------------------
 
-        q7_array = savgol_filter(q7_array, window_length=int(0.15*len(q7_array)), polyorder=3)
+        q7_array = savgol_filter(q7_array, window_length=int(0.2*len(q7_array)), polyorder=3)
 
         # Inverse kinematics -----------------------------------------------------------------
 
@@ -204,6 +204,8 @@ def main(traj):
             
             data = [float(inputData[0, 0]), float(inputData[0, 1]), float(inputData[0, 2]), float(inputData[0, 3]), float(inputData[0, 4]), float(inputData[0, 5]), float(inputData[0, 6]), q7, float(mode), float(dispFrame)]
             response = IK_fromQuater_client(data)
+
+            print(len(response))
 
             q_array = optMove(response, q_actual_array)
 
