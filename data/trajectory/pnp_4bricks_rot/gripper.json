@@ -1,0 +1,56 @@
+{
+	"waypoints":[
+		{
+			"t": 0,
+			"action": "open"
+		},
+		{
+			"t": 1.83333,
+			"action": "close"
+		},
+		{
+			"t": 2.16667,
+			"action": "open"
+		},
+		{
+			"t": 2.33333,
+			"action": "close"
+		},
+		{
+			"t": 3.33333,
+			"action": "open"
+		},
+		{
+			"t": 4.33333,
+			"action": "close"
+		},
+		{
+			"t": 6,
+			"action": "open"
+		},
+		{
+			"t": 6.41667,
+			"action": "close"
+		},
+		{
+			"t": 6.58333,
+			"action": "open"
+		},
+		{
+			"t": 7,
+			"action": "close"
+		},
+		{
+			"t": 8.5,
+			"action": "open"
+		},
+		{
+			"t": 9.75,
+			"action": "close"
+		},
+		{
+			"t": 11.5,
+			"action": "open"
+		}
+	]
+}
