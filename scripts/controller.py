@@ -99,6 +99,7 @@ def homing(q_last, ttype):
         q_diff[i] = q_diff[i]/(0.3*q_p_lim[i])
     
     t = [0, max([2, max(q_diff)])]
+    print("Waiting ", t, "s")
     q = [q_reg, q_last]
     
     if ttype == "follow_joint":
@@ -121,6 +122,7 @@ def homing(q_last, ttype):
     while status == None:
         pass
     status = None
+    print("homing ended")
     #if not status == 3:
     #    print(f"Homing ended with an error:\n{error_log}")
 
