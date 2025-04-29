@@ -189,7 +189,7 @@ def main(traj):
 
         # Savitzky-Golay filter -----------------------------------------------------------------
 
-        q7_array = savgol_filter(q7_array, window_length=int(0.2*len(q7_array)), polyorder=5)
+        #q7_array = savgol_filter(q7_array, window_length=int(0.1*len(q7_array)), polyorder=3)
 
         # Inverse kinematics -----------------------------------------------------------------
 
