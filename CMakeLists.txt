@@ -97,10 +97,10 @@ catkin_install_python(PROGRAMS
   scripts/human_poses_test.py
   scripts/NN_engine.py
   scripts/NN_trainer.py
-  scripts/pose_plotter.py
   scripts/main.py
   scripts/controller.py
   scripts/Panda_trajectory_planner.py
+  scripts/GUI.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
