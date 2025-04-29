@@ -205,7 +205,7 @@ def main(traj):
             data = [float(inputData[0, 0]), float(inputData[0, 1]), float(inputData[0, 2]), float(inputData[0, 3]), float(inputData[0, 4]), float(inputData[0, 5]), float(inputData[0, 6]), q7, float(mode), float(dispFrame)]
             response = IK_fromQuater_client(data)
 
-            print(len(response))
+            print(len(response), " - ", q7)
 
             q_array = optMove(response, q_actual_array)
 
