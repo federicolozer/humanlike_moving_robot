@@ -19,13 +19,6 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Eigen3 REQUIRED)
 find_package(PythonLibs 3.8 REQUIRED)
 
-## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  IK_fromFrame.srv
-  IK_fromQuater.srv
-)
-
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
