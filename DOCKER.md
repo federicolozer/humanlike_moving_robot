@@ -27,7 +27,7 @@ roslaunch humanlike_moving_robot main.launch
 Since you have to launch two different commands to run the demo, you need two different terminals.
 So you just need to connect to the running container from another tab.
 
-Just oper a new tab on the host machine (not from the Docker container) and run the following command:
+Just open a new tab on the host machine (not from the Docker container) and run the following command:
 ```shell script
 sudo docker ps
 ```
