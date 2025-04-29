@@ -221,7 +221,7 @@ def exec_grasping(t, q):
 
 
 def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
-    global t0
+    global t0, status, error_log, q_reg
 
     if len(q_arm) > 0:
         homing(q_arm[0], ttype)
