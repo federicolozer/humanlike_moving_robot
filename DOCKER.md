@@ -1,4 +1,4 @@
-# Instructions for setup with Docker
+# Instructions for the setup with Docker
 
 To launch the application from a Docker container, you just need to download a preconfigured image.
 
