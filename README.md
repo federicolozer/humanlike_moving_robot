@@ -81,7 +81,7 @@ You can alternatively replace all the shebangs or try to fix the issue in anothe
 
 Then, install `pip3`:
 ```shell script
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+curl https://bootstrap.pypa.io/pip/3.8/get-pip.py -o get-pip.py  
 python3.8 get-pip.py
 ```
 Check your `pip3` version with the following command:
