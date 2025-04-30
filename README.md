@@ -7,7 +7,7 @@
 # Human-like Moving Robot
 
 <div align="center">
-  <img src=data/media/robot.gif alt="Panda robot" width=80% style="display: block; padding-bottom: 500 pt">
+  <img src=data/media/robot.gif alt="Panda robot" width=80% style="display: block; padding-bottom: 50 pt">
 </div>
 
 
