@@ -10,6 +10,7 @@
   <img src=data/media/robot.gif alt="Panda robot" width=80% style="display: block; margin: 0 auto">
 </div>
 
+
 This is a package developed by ADMiRE Research Center in collaboration with University of Udine.
 
 The aim is to reproduce the human behavior on a redundant collaborative robot. 
