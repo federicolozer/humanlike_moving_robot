@@ -10,11 +10,10 @@
   <img src=data/media/robot.gif alt="Panda robot" width=80% style="display: block; margin: 0 auto">
 </div>
 
-<p>
-  This is a package developed by ADMiRE Research Center in collaboration with University of Udine. <br>
-  The aim is to reproduce the human behavior on a redundant collaborative robot. 
-  This application is designed specifically for Franka Emika Panda robot.
-</p>
+This is a package developed by ADMiRE Research Center in collaboration with University of Udine.
+
+The aim is to reproduce the human behavior on a redundant collaborative robot. 
+This application is designed specifically for Franka Emika Panda robot.
 
 ## Prerequisites
 
