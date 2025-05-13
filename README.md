@@ -10,10 +10,12 @@
   <img src=data/media/robot.gif alt="Panda robot" width=80% style="display: block; padding-bottom: 50 pt">
 </div>
 
+The aim is to reproduce the human behavior on a redundant collaborative robot, developing an application to plan robot trajectories as it could move like an human would do
+The robot should emulate the movements of a real arm while executing tasks.
+This behavior should increase human-robot collaboration, making robot movements more predictables.
 
-This is a package developed by ADMiRE Research Center in collaboration with University of Udine.
+This is a package developed by ADMiRE Research Center and University of Udine.
 
-The aim is to reproduce the human behavior on a redundant collaborative robot. 
 This application is designed specifically for Franka Emika Panda robot.
 
 ## Prerequisites
