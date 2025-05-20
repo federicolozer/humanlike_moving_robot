@@ -14,6 +14,10 @@ import yaml
 import rospkg
 import csv
 from scipy.signal import savgol_filter
+import matplotlib.pyplot as plt
+import numpy as np
+
+
 
 dispFrame = False
 ttype = "follow_joint"
@@ -45,6 +49,8 @@ def IK_fromQuater_client(data):
         res = np.frombuffer(client_socket.recv(56), dtype=np.double)
         if np.isnan(res).any() == False:
             response.append(res)
+        else:
+            response.append([])
     
     client_socket.close()
 
@@ -89,17 +95,33 @@ def endTransmission(port):
 
 def optMove(q_array_list, q_actual_array):
     err = nan
+    cnt = 0
+    count = 0
+    print()
+    print("--------------------------")
+    print("len = ", len(q_array_list))
     
     if not q_array_list == []:
-        for array in q_array_list:
-            n_err = np.dot((array[2]-q_actual_array[2]), (array[2]-q_actual_array[2]))
+        q_array = list(q_array_list[1])
+        """for array in q_array_list:
+            n_err = 0
+            cnt += 1
+
+            print("array = ", array)
+            
+            #n_err = np.dot((array[2]-q_actual_array[2]), (array[2]-q_actual_array[2]))
+            
+            for i in range(3):
+                n_err += np.dot((array[i]-q_actual_array[i]), (array[i]-q_actual_array[i]))
 
             if n_err-err < 0 or np.isnan(n_err-err):
                 q_array = list(array)
-                err = n_err
+                count = deepcopy(cnt)
+                err = n_err"""
     else:
         q_array = []
-
+    print("sol = ", count)
+    print("q_array = ", q_array)
     return q_array
 
 
@@ -131,6 +153,7 @@ def main(traj):
     t_gripper = []
     q_gripper = []
     inputData_array = []
+    O_EE_array = []
     q7_array = []
     q7_real_array = []
     q_actual_array = np.array([0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397])
@@ -174,6 +197,7 @@ def main(traj):
         for waypoint in trajectory["waypoints"]:
             quater = np.array([float(waypoint["Qx"]), float(waypoint["Qy"]), float(waypoint["Qz"]), float(waypoint["Qw"])])
             O_EE = np.array([float(waypoint["x"]), float(waypoint["y"]), float(waypoint["z"])])
+            O_EE_array.append(O_EE)
 
             inputData = np.matrix(np.concatenate((quater, O_EE), axis=0))
             q7 = float(nn.neuralNetwork(model, inputData)[0]) 
@@ -189,7 +213,12 @@ def main(traj):
 
         # Savitzky-Golay filter -----------------------------------------------------------------
 
-        #q7_array = savgol_filter(q7_array, window_length=int(0.1*len(q7_array)), polyorder=3)
+        x1 = np.array(range(len(q7_array)))
+        y1 = np.array(q7_array)
+
+        q7_array = savgol_filter(q7_array, window_length=int(0.1*len(q7_array)), polyorder=3)
+
+        y2 = np.array(O_EE_array)
 
         # Inverse kinematics -----------------------------------------------------------------
 
@@ -205,8 +234,7 @@ def main(traj):
             data = [float(inputData[0, 0]), float(inputData[0, 1]), float(inputData[0, 2]), float(inputData[0, 3]), float(inputData[0, 4]), float(inputData[0, 5]), float(inputData[0, 6]), q7, float(mode), float(dispFrame)]
             response = IK_fromQuater_client(data)
 
-            print(len(response), " - ", q7)
-
+            print("waypoint = ", cnt)
             q_array = optMove(response, q_actual_array)
 
             if not len(q_array) == 0:
@@ -216,9 +244,20 @@ def main(traj):
                 cnt += 1
             else:
                 pass
-                #t.append(None)     iot ce fa di chescj
-                #q.append(None)
+                #t_arm.append(t_array[i]*sd_rate)     #iot ce fa di chescj
+                #q_arm.append([None, None, None, None, None, None, None])
         
+
+        x2 = np.array(range(len(q_arm)))
+        y4 = np.array(q_arm)[:, 1]
+
+
+        plt.plot(x1, y1, ".")
+        plt.plot(x1, y2, "-")
+        plt.plot(x2, y4, "-")
+        print("Showing plot")
+        plt.show()
+
         tn = time.time()
         print(f"Elapsed time for having a solution from IK client: {(tn-t0):>4f} s")
         print("---------------------------------------------------------------")
