@@ -21,7 +21,7 @@ import numpy as np
 
 dispFrame = False
 ttype = "follow_joint"
-sd_rate = 1
+sd_rate = 2
 t_arm = []
 q_arm = []
 t_gripper = []
@@ -100,26 +100,29 @@ def optMove(q_array_list, q_actual_array):
     print()
     print("--------------------------")
     print("len = ", len(q_array_list))
+
+    q_array = []
     
     if not q_array_list == []:
-        q_array = list(q_array_list[1])
-        """for array in q_array_list:
+        #q_array = list(q_array_list[1])
+        for array in q_array_list:
+            if array == []:
+                continue
+
             n_err = 0
             cnt += 1
 
             print("array = ", array)
             
-            #n_err = np.dot((array[2]-q_actual_array[2]), (array[2]-q_actual_array[2]))
-            
-            for i in range(3):
-                n_err += np.dot((array[i]-q_actual_array[i]), (array[i]-q_actual_array[i]))
+            #for i in range(1, 3):
+            i = 2
+            n_err += np.dot((array[i]-q_actual_array[i]), (array[i]-q_actual_array[i]))
 
             if n_err-err < 0 or np.isnan(n_err-err):
                 q_array = list(array)
                 count = deepcopy(cnt)
-                err = n_err"""
-    else:
-        q_array = []
+                err = n_err
+
     print("sol = ", count)
     print("q_array = ", q_array)
     return q_array
@@ -213,12 +216,7 @@ def main(traj):
 
         # Savitzky-Golay filter -----------------------------------------------------------------
 
-        x1 = np.array(range(len(q7_array)))
-        y1 = np.array(q7_array)
-
         q7_array = savgol_filter(q7_array, window_length=int(0.1*len(q7_array)), polyorder=3)
-
-        y2 = np.array(O_EE_array)
 
         # Inverse kinematics -----------------------------------------------------------------
 
@@ -227,12 +225,14 @@ def main(traj):
         print("===============================================================")
         t0 = time.time()
         cnt = 0
+        res_array = []
         for i in range(len(inputData_array)):
             inputData = inputData_array[i]
             q7 = q7_array[i]
             
             data = [float(inputData[0, 0]), float(inputData[0, 1]), float(inputData[0, 2]), float(inputData[0, 3]), float(inputData[0, 4]), float(inputData[0, 5]), float(inputData[0, 6]), q7, float(mode), float(dispFrame)]
             response = IK_fromQuater_client(data)
+            res_array.append(deepcopy(response))
 
             print("waypoint = ", cnt)
             q_array = optMove(response, q_actual_array)
@@ -248,15 +248,38 @@ def main(traj):
                 #q_arm.append([None, None, None, None, None, None, None])
         
 
-        x2 = np.array(range(len(q_arm)))
-        y4 = np.array(q_arm)[:, 1]
+        x1 = np.array(range(len(q_arm)))
+        y1 = np.array(q_arm)[:, 6]
+        x2 = np.array(range(len(q7_real_array)))
+        y2 = np.array(q7_real_array)
 
 
-        plt.plot(x1, y1, ".")
-        plt.plot(x1, y2, "-")
-        plt.plot(x2, y4, "-")
+        plt.plot(x1, y1, "-")
+        plt.plot(x2, y2, "--")
+        #plt.show()
+
+        print("res_array = ", res_array)
+
+        return
+
+        x1 = np.array(range(len(q_arm)))
+        y1 = np.array(q_arm)[:, 1]
+        x2 = np.array(range(len(res_array)))
+        y2 = np.array(res_array)[:, 0]
+        y3 = np.array(res_array)[:, 1]
+        y4 = np.array(res_array)[:, 2]
+        y5 = np.array(res_array)[:, 3]
+
+
+        plt.plot(x1, y1, "-")
+        plt.plot(x2, y2, ".")
+        plt.plot(x2, y3, ".")
+        plt.plot(x2, y4, ".")
+        plt.plot(x2, y5, ".")
         print("Showing plot")
         plt.show()
+
+        return
 
         tn = time.time()
         print(f"Elapsed time for having a solution from IK client: {(tn-t0):>4f} s")
