@@ -8,6 +8,8 @@
 #include <cmath>
 #include <iostream>
 
+boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
+
 
 
 void printFrame(Eigen::Matrix4d O_T_EE_tmp) {
@@ -49,6 +51,32 @@ Eigen::Matrix4d baseCoordTransf(Eigen::Matrix4d O_T_EE_mat, int mode) {
     }
     
     return O_T_EE_tmp;
+}
+
+
+
+bool IK_check(Eigen::Map< Eigen::Matrix4d > O_T_EE, double q7, int mode) {
+    Eigen::Matrix4d O_T_EE_tmp = baseCoordTransf(O_T_EE, mode);
+    Eigen::Map<Eigen::Matrix4d> O_T_EE_new(O_T_EE_tmp.data());
+
+    boost::array<boost::array<double, 7>, 4> q_array_list = IK_solver(O_T_EE_new, q7, q_actual_array, false);
+
+    bool result = false;
+    bool valid;
+    for (int i=0; i<4; i++) {
+        valid = true;
+        for (int j=0; j<7; j++) {
+            if (std::isnan(q_array_list[i][j])) {
+                valid = false;
+            }
+        }
+        if (valid) {
+            result = true;
+            break;
+        }
+    }
+
+    return result;
 }
 
 #endif

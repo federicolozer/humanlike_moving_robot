@@ -117,7 +117,7 @@ def exec():
 
 
 if __name__ == '__main__':
-    if not os.environ.get("WERKZEUG_RUN_MAIN"):
-        webbrowser.open_new('http://127.0.0.1:5000/')
+    #if not os.environ.get("WERKZEUG_RUN_MAIN"):
+    #    webbrowser.open_new('http://127.0.0.1:5000/')
 
     app.run(debug=True)

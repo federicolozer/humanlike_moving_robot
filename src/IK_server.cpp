@@ -9,7 +9,6 @@
 #include <cmath>
 #include <ros/package.h>
 
-boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
 std::string yaml_path = ros::package::getPath("humanlike_moving_robot") + "/config/mode.yaml";
 
 

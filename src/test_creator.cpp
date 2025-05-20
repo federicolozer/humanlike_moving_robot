@@ -10,34 +10,8 @@
 #include <ros/package.h>
 
 int skip = 10;
-boost::array<double, 7> q_actual_array = {{0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397}};
 std::string pack_path = ros::package::getPath("humanlike_moving_robot");
 std::string yaml_path = pack_path+"/config/mode.yaml";
-
-
-bool IK_check(Eigen::Map< Eigen::Matrix4d > O_T_EE, double q7, int mode) {
-    Eigen::Matrix4d O_T_EE_tmp = baseCoordTransf(O_T_EE, mode);
-    Eigen::Map<Eigen::Matrix4d> O_T_EE_new(O_T_EE_tmp.data());
-
-    boost::array<boost::array<double, 7>, 4> q_array_list = IK_solver(O_T_EE_new, q7, q_actual_array, false);
-
-    bool result = false;
-    bool valid;
-    for (int i=0; i<4; i++) {
-        valid = true;
-        for (int j=0; j<7; j++) {
-            if (std::isnan(q_array_list[i][j])) {
-                valid = false;
-            }
-        }
-        if (valid) {
-            result = true;
-            break;
-        }
-    }
-
-    return result;
-}
 
 
 
@@ -111,10 +85,6 @@ int createTest(PyObject* pModule, PyObject* pHumanPoses, Eigen::Matrix4d frame, 
             double grip_wid = PyFloat_AsDouble(PyList_GetItem(pList, 6));
             grip_wid_array.push_back({grip_wid, t-t0});
             grip_sum += grip_wid;
-            //if (!IK_check(O_T_EE, q7, mode)) {
-            //    cnt++;
-            //    continue;
-            //}
 
             // Write line in dataset file
             Eigen::Quaterniond quater = frameToQuaternion(frame);
@@ -125,9 +95,6 @@ int createTest(PyObject* pModule, PyObject* pHumanPoses, Eigen::Matrix4d frame, 
 
     // Write gripper file
     double mean = grip_sum/grip_wid_array.size();
-
-    //auto minmax = std::minmax_element(grip_wid_array.begin(), grip_wid_array.end());
-    //double mean = ((*minmax.first)[0]+(*minmax.second)[0])/2;
 
     int grip_status = 1;
     for (auto pnt=grip_wid_array.begin(); pnt<grip_wid_array.end(); pnt++) {
@@ -140,8 +107,6 @@ int createTest(PyObject* pModule, PyObject* pHumanPoses, Eigen::Matrix4d frame, 
             grip_status = 1;
         }
     }
-
-    //std::cout << std::endl << "Discarded data due to IK inconsistency: " << cnt*100/PyList_Size(pHumanPoses) << "%" << std::endl;
 }
 
 
