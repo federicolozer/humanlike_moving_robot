@@ -52,7 +52,7 @@ def IK_fromQuater_client(data):
 
 
 
-def controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype):
+def controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     data = np.array(t_arm, dtype=np.double).tobytes()
@@ -72,6 +72,8 @@ def controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype):
     client_socket.sendto(data, ('localhost', 8081))
 
     client_socket.sendto(ttype.encode(), ('localhost', 8081))
+
+    client_socket.sendto(traj.encode(), ('localhost', 8081))
     
     client_socket.close()
 
@@ -243,7 +245,7 @@ def main(traj):
         print(f"Solutions found: {cnt}/{len(trajectory['waypoints'])}")
         print("---------------------------------------------------------------")
 
-        controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype)
+        controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
         #controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
     
     return 1

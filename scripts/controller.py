@@ -5,6 +5,7 @@ import rospy
 import numpy as np
 from copy import deepcopy
 from sensor_msgs.msg import JointState
+from franka_msgs.msg import FrankaState
 from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryActionResult
 from moveit_msgs.msg import ExecuteTrajectoryActionGoal, ExecuteTrajectoryActionResult
 from franka_gripper.msg import MoveActionGoal, GraspActionGoal, MoveGoal, GraspGoal
@@ -19,6 +20,10 @@ status = None
 error_log = None
 q_reg = []
 q_p_lim = np.array([2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100])
+q_exp = []
+O_EE_exp = []
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
+
 
 
 
@@ -26,6 +31,15 @@ def CallbackJointStates(data):
     global q_reg
     
     q_reg = list(data.position[0:7])
+
+
+
+def CallbackAcquireData(data)
+    global q_exp, O_EE_exp
+
+    q_exp.append(data.q)
+    O_EE_exp.append(data.O_T_EE[12:14])
+
 
 
 
@@ -130,7 +144,7 @@ def homing(q_last, ttype):
 
 
 def exec_trajectory(t, q, ttype):
-    global t0, status, error_log
+    global t0, status, error_log, q_exp, O_EE_exp
 
     if ttype == "follow_joint":
         result_subscriber = rospy.Subscriber('/effort_joint_trajectory_controller/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, CallbackResult)
@@ -149,6 +163,9 @@ def exec_trajectory(t, q, ttype):
     print("Starting trajectory\n")
     if not t0:
         t0 = rospy.get_time()
+
+    q_exp = []
+    O_EE_exp = []
     
     wait_execution((t[-1]-t[0]))
 
@@ -216,16 +233,18 @@ def exec_grasping(t, q):
             close_gripper()
         elif q[i] == 1:
             open_gripper()
-                       
 
 
-def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
-    global t0, status, error_log, q_reg
+
+def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype, traj):
+    global t0, status, error_log, q_reg, q_exp, O_EE_exp
 
     if len(q_arm) > 0:
         homing(q_arm[0], ttype)
         
         if not len(q_arm) == 1:
+            aq_data_subscriber = rospy.Subscriber('/franka_state_controller/franka_states', FrankaState, CallbackAcquireData)
+
             t1 = threading.Thread(target=exec_trajectory, args=(t_arm, q_arm, ttype))
             t2 = threading.Thread(target=exec_grasping, args=(t_gripper, q_gripper))
 
@@ -234,6 +253,16 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype):
 
             t1.join()
             t2.join()
+
+            file1 = open(f'{pack_path}/data/trajectory/{traj}/q_exp.csv', 'w')
+            file1.write(q_exp)
+            file1.close()
+
+            file2 = open(f'{pack_path}/data/trajectory/{traj}/O_EE_exp.csv', 'w')
+            file2.write(O_EE_exp)
+            file2.close()
+
+            aq_data_subscriber.unregister()
 
         t0 = None
         status = None
@@ -282,7 +311,10 @@ def controller_server():
         data, addr = server_socket.recvfrom(1024)
         ttype = data.decode()
 
-        launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
+        data, addr = server_socket.recvfrom(1024)
+        traj = data.decode()
+
+        launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
 
     server_socket.close()
 
