@@ -87,13 +87,13 @@
         name="$(arg arm_id)_gripper_spawner"
         if="$(arg load_gripper)"
         args="franka_gripper"
-        respawn="false"
+        respawn="false" output="log"
     />
 
     <node pkg="controller_manager"
         type="spawner"
         name="$(arg arm_id)_controller_spawner"
-        respawn="false" output="screen"
+        respawn="false" output="log"
         args="--wait-for initialized franka_state_controller $(arg controller)_joint_trajectory_controller"
     />
     

@@ -17,7 +17,7 @@
     <node pkg="controller_manager"	
         type="spawner"
         name="$(arg arm_id)_controller_spawner"
-        respawn="false" output="screen"
+        respawn="false"
         args="$(arg controller)_joint_trajectory_controller"
     />
 

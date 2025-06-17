@@ -14,6 +14,7 @@ from progress.bar import IncrementalBar as Bar
 import time
 import socket
 import threading
+import rospkg
 
 t0 = None
 status = None
@@ -34,11 +35,11 @@ def CallbackJointStates(data):
 
 
 
-def CallbackAcquireData(data)
+def CallbackAcquireData(data):
     global q_exp, O_EE_exp
 
     q_exp.append(data.q)
-    O_EE_exp.append(data.O_T_EE[12:14])
+    O_EE_exp.append(data.O_T_EE[12:15])
 
 
 
@@ -255,11 +256,15 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype, traj):
             t2.join()
 
             file1 = open(f'{pack_path}/data/trajectory/{traj}/q_exp.csv', 'w')
-            file1.write(q_exp)
+            for q in q_exp:
+                file1.write(f"{q[0]}, {q[1]}, {q[2]}, {q[3]}, {q[4]}, {q[5]}, {q[6]}")
             file1.close()
 
+            print(O_EE_exp[0])
+
             file2 = open(f'{pack_path}/data/trajectory/{traj}/O_EE_exp.csv', 'w')
-            file2.write(O_EE_exp)
+            for O_EE in O_EE_exp:
+                file2.write(f"{O_EE_exp[0]}, {O_EE_exp[1]}, {O_EE_exp[2]}")
             file2.close()
 
             aq_data_subscriber.unregister()
