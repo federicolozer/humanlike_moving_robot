@@ -14,6 +14,7 @@ import yaml
 import rospkg
 import csv
 from scipy.signal import savgol_filter
+import os
 
 dispFrame = False
 ttype = "follow_joint"
@@ -137,16 +138,26 @@ def main(traj):
     q7_real_array = []
     q_actual_array = np.array([0, -0.785398163397, 0, -2.3561944899, 0, 1.57079632679, 0.785398163397])
     #q_actual_array = controller.readJointStates()
+
+    os.mkdir(f'{pack_path}/data/results/{traj}')
     
     try:
         with open(f"{pack_path}/data/dataset/{traj}.csv") as file:
             doOnce = True
+            file1 = open(f'{pack_path}/data/results/{traj}/q7.csv', 'w')
+            file2 = open(f'{pack_path}/data/results/{traj}/O_EE.csv', 'w')
+
             for line in csv.reader(file):
                 if doOnce:
                     doOnce = False
                     continue
 
                 q7_real_array.append(float(line[7]))
+                file1.write(f"{float(line[7])}\n")
+                file2.write(f"{float(line[4])}, {float(line[5])}, {float(line[6])}\n")
+
+            file1.close()
+            file2.close()
     except:
         print("Selected trajectory does not exist..")
         return 0

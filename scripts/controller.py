@@ -255,16 +255,14 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype, traj):
             t1.join()
             t2.join()
 
-            file1 = open(f'{pack_path}/data/trajectory/{traj}/q_exp.csv', 'w')
+            file1 = open(f'{pack_path}/data/results/{traj}/q_exp.csv', 'w')
             for q in q_exp:
-                file1.write(f"{q[0]}, {q[1]}, {q[2]}, {q[3]}, {q[4]}, {q[5]}, {q[6]}")
+                file1.write(f"{q[0]}, {q[1]}, {q[2]}, {q[3]}, {q[4]}, {q[5]}, {q[6]}\n")
             file1.close()
 
-            print(O_EE_exp[0])
-
-            file2 = open(f'{pack_path}/data/trajectory/{traj}/O_EE_exp.csv', 'w')
+            file2 = open(f'{pack_path}/data/results/{traj}/O_EE_exp.csv', 'w')
             for O_EE in O_EE_exp:
-                file2.write(f"{O_EE_exp[0]}, {O_EE_exp[1]}, {O_EE_exp[2]}")
+                file2.write(f"{O_EE[0]}, {O_EE[1]}, {O_EE[2]}\n")
             file2.close()
 
             aq_data_subscriber.unregister()
