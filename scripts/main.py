@@ -187,7 +187,8 @@ def main(traj):
         print("\tNeural network")
         print("===============================================================")
         t0 = time.time()
-        file3 = open(f'{pack_path}/data/results/{traj}/q7_exp.csv', 'w')
+        file3 = open(f'{pack_path}/data/results/{traj}/q7_NN.csv', 'w')
+        file4 = open(f'{pack_path}/data/results/{traj}/t.csv', 'w')
         for waypoint in trajectory["waypoints"]:
             quater = np.array([float(waypoint["Qx"]), float(waypoint["Qy"]), float(waypoint["Qz"]), float(waypoint["Qw"])])
             O_EE = np.array([float(waypoint["x"]), float(waypoint["y"]), float(waypoint["z"])])
@@ -200,9 +201,11 @@ def main(traj):
             file3.write(f"{q7}\n")
 
             t_array.append(waypoint["t"])
+            file4.write(f"{t_array[-1]}\n")
 
         tn = time.time()
         file3.close()
+        file4.close()
         print(f"Elapsed time for having a solution from NN: {(tn-t0):>4f} s")
         print("---------------------------------------------------------------")
 

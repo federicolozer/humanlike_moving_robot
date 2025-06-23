@@ -1,0 +1,239 @@
+#!/usr/bin/env python3
+# coding=utf-8
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scienceplots
+import rospkg
+import sys
+import os
+
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
+
+def plotter(traj):
+    try:
+        os.mkdir(f'{pack_path}/data/plots/{traj}')
+    except:
+        pass
+
+    file1 = open(f'{pack_path}/data/results/{traj}/q7.csv', 'r')
+    file2 = open(f'{pack_path}/data/results/{traj}/q7_NN.csv', 'r')
+    file3 = open(f'{pack_path}/data/results/{traj}/t.csv', 'r')
+    file4 = open(f'{pack_path}/data/results/{traj}/O_EE.csv', 'r')
+    file5 = open(f'{pack_path}/data/results/{traj}/O_EE_exp.csv', 'r')
+    file6 = open(f'{pack_path}/data/results/{traj}/t_exp.csv', 'r')
+    file7 = open(f'{pack_path}/data/results/{traj}/q_exp.csv', 'r')
+
+    q7 = file1.read()
+    q7_NN = file2.read()
+    t = file3.read()
+    O_EE = file4.read()
+    O_EE_exp = file5.read()
+    t_exp = file6.read()
+    q_exp = file7.read()
+
+    file1.close()
+    file2.close()
+    file3.close()
+    file4.close()
+    file5.close()
+    file6.close()
+    file7.close()
+
+    q7 = q7.split()
+    for i in range(len(q7)):
+        q7[i] = float(q7[i])
+
+    q7_NN = q7_NN.split()
+    for i in range(len(q7_NN)):
+        q7_NN[i] = float(q7_NN[i])
+
+    t = t.split()
+    for i in range(len(t)):
+        t[i] = float(t[i])
+
+    O_EE = O_EE.split("\n")
+    O_EE.pop(-1)
+    x = []
+    y = []
+    z = []
+    for i in range(len(O_EE)):
+        tmp = O_EE[i].split(", ")   
+        O_EE[i] = [float(tmp[0]), float(tmp[1]), float(tmp[2])]            
+        x.append(float(tmp[0]))
+        y.append(float(tmp[1]))
+        z.append(float(tmp[2]))
+
+    O_EE_exp = O_EE_exp.split("\n")
+    O_EE_exp.pop(-1)
+    x_exp = []
+    y_exp = []
+    z_exp = []
+    for i in range(len(O_EE_exp)):
+        tmp = O_EE_exp[i].split(", ") 
+        O_EE_exp[i] = [float(tmp[0]), -float(tmp[1]), 1.033-float(tmp[2])]   
+        x_exp.append(float(tmp[0]))
+        y_exp.append(-float(tmp[1]))
+        z_exp.append(1.033-float(tmp[2]))
+
+    t_exp = t_exp.split()
+    for i in range(len(t_exp)):
+        t_exp[i] = float(t_exp[i])
+
+    q_exp = q_exp.split("\n")
+    q_exp.pop(-1)
+    for i in range(len(q_exp)):
+        tmp = q_exp[i].split(", ") 
+        q_exp[i] = [float(tmp[0]), float(tmp[1]), float(tmp[2]), float(tmp[3]), float(tmp[4]), float(tmp[5]), float(tmp[6])]
+
+
+
+    figsize = (10, 7)
+    fontsize = 18
+    linewidth = 1.5
+    with plt.style.context(["science", "std-colors"]):
+        # plot q7
+        fig, ax = plt.subplots(figsize=figsize, layout='constrained')
+        ax.plot(t, q7, label="$q_7$", linewidth=2)
+        ax.plot(t, q7_NN, label="$q_{7,NN}$", linewidth=2)
+        ax.legend(fontsize=fontsize)
+        ax.autoscale(tight=True)
+        ax.spines["bottom"].set_linewidth(linewidth)
+        ax.spines["left"].set_linewidth(linewidth)
+        ax.spines["top"].set_linewidth(linewidth)
+        ax.spines["right"].set_linewidth(linewidth)
+
+        ax.xaxis.set_ticks_position('bottom')
+        ax.yaxis.set_ticks_position('left')
+        ax.tick_params(which='major', width=linewidth, length=6)
+        ax.tick_params(which='minor', width=linewidth, length=3)
+        xticks = np.arange(0, round(t[-1]), 2)
+        xlabels = [f'{x:1.0f}' for x in xticks]
+        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
+        yticks = np.arange(-1, 1, 0.4)
+        ylabels = [f'{y:1.1f}' for y in yticks]
+        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
+        plt.xlabel("t [s]", fontsize=fontsize)
+        plt.ylabel("$q_7$ [rad]", fontsize=fontsize)
+
+        plt.show()
+        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_q7.pdf', dpi=300)
+        plt.close()
+        
+        #plot O_EE
+        fig, ax = plt.subplots(figsize=figsize, layout='constrained')
+        plt.plot(t, x, label="$x$", linewidth=2, color='#1f77b4')
+        plt.plot(t, y, label="$y$", linewidth=2, color='#ff7f0e')
+        plt.plot(t, z, label="$z$", linewidth=2, color='#2ca02c')
+        plt.plot(t_exp, x_exp, label="$x_{exp}$", linewidth=2, color='#1f77b4', linestyle='dashed')
+        plt.plot(t_exp, y_exp, label="$y_{exp}$", linewidth=2, color='#ff7f0e', linestyle='dashed')
+        plt.plot(t_exp, z_exp, label="$z_{exp}$", linewidth=2, color='#2ca02c', linestyle='dashed')
+        fig.legend(loc='outside upper left', ncols=6, fontsize=fontsize)
+        ax.autoscale(tight=True)
+        ax.spines["bottom"].set_linewidth(linewidth)
+        ax.spines["left"].set_linewidth(linewidth)
+        ax.spines["top"].set_linewidth(linewidth)
+        ax.spines["right"].set_linewidth(linewidth)
+
+        ax.xaxis.set_ticks_position('bottom')
+        ax.yaxis.set_ticks_position('left')
+        ax.tick_params(which='major', width=linewidth, length=6)
+        ax.tick_params(which='minor', width=linewidth, length=3)
+        xticks = np.arange(0, round(t_exp[-1]), 2)
+        xlabels = [f'{x:1.0f}' for x in xticks]
+        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
+        yticks = np.arange(-0.6, 1.4, 0.4)
+        ylabels = [f'{y:1.1f}' for y in yticks]
+        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
+        plt.xlabel("t [s]", fontsize=fontsize)
+        plt.ylabel("$O_{EE}$ [m]", fontsize=fontsize)
+
+        plt.show()
+        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_OEE.pdf', dpi=300)
+        plt.close()
+
+        #plot x, y, z
+        fig = plt.figure(figsize=figsize, layout='constrained')
+        ax = fig.add_subplot(projection='3d')
+        ax.plot(x, y, z, label="$O_{EE}$", linewidth=2)
+        ax.plot(x_exp, y_exp, z_exp, label="$O_{EE,exp}$", linewidth=2)
+        ax.legend(fontsize=fontsize)
+        ax.autoscale(tight=True)
+        ax.spines["bottom"].set_linewidth(linewidth)
+        ax.spines["left"].set_linewidth(linewidth)
+        ax.spines["top"].set_linewidth(linewidth)
+        ax.spines["right"].set_linewidth(linewidth)
+
+        plt.minorticks_off()
+        ax.tick_params(which='major', width=linewidth, length=6)
+        ax.tick_params(which='minor', width=linewidth, length=3)
+        xticks = np.arange(min(x), max(x), 0.1)
+        xlabels = [f'{x:1.1f}' for x in xticks]
+        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
+        yticks = np.arange(min(y), max(y), 0.1)
+        ylabels = [f'{y:1.1f}' for y in yticks]
+        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
+        zticks = np.arange(min(z), max(z), 0.1)
+        zlabels = [f'{z:1.1f}' for z in zticks]
+        ax.set_zticks(zticks, labels=zlabels, fontsize=fontsize)
+        plt.xlabel("x [m]", fontsize=fontsize, labelpad=15)
+        plt.ylabel("y [m]", fontsize=fontsize, labelpad=15)
+        fig.text(0.9, 0.5, "z [m]", fontsize=fontsize)
+
+        plt.show()
+        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_xyz.pdf', dpi=300)
+        plt.close()
+
+        #plot q
+        fig, ax = plt.subplots(figsize=figsize, layout='constrained')
+        plt.plot(t_exp, q_exp, label=["$q_1$", "$q_2$", "$q_3$", "$q_4$", "$q_5$", "$q_6$", "$q_7$"], linewidth=2)
+        fig.legend(loc='outside upper left', ncols=7, fontsize=fontsize)
+        ax.autoscale(tight=True)
+        ax.spines["bottom"].set_linewidth(linewidth)
+        ax.spines["left"].set_linewidth(linewidth)
+        ax.spines["top"].set_linewidth(linewidth)
+        ax.spines["right"].set_linewidth(linewidth)
+
+        ax.xaxis.set_ticks_position('bottom')
+        ax.yaxis.set_ticks_position('left')
+        ax.tick_params(which='major', width=linewidth, length=6)
+        ax.tick_params(which='minor', width=linewidth, length=3)
+        xticks = np.arange(0, round(t_exp[-1]), 2)
+        xlabels = [f'{x:1.0f}' for x in xticks]
+        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
+        yticks = np.arange(-3, 4, 1)
+        ylabels = [f'{y:1.1f}' for y in yticks]
+        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
+        plt.xlabel("t [s]", fontsize=fontsize)
+        plt.ylabel("$q$ [rad]", fontsize=fontsize)
+
+        plt.show()
+        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_q.pdf', dpi=300)
+        plt.close()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        for traj in sys.argv[1:]:
+            plotter(traj)
+        
+
+
+
+            
+
+    
+
+
+
+
+
+
+
+    
+    
+
+
+            
+
+

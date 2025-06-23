@@ -15,6 +15,7 @@ import time
 import socket
 import threading
 import rospkg
+from plotter import plotter
 
 t0 = None
 status = None
@@ -23,6 +24,7 @@ q_reg = []
 q_p_lim = np.array([2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100])
 q_exp = []
 O_EE_exp = []
+t_exp = []
 pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
 
@@ -36,10 +38,11 @@ def CallbackJointStates(data):
 
 
 def CallbackAcquireData(data):
-    global q_exp, O_EE_exp
+    global q_exp, O_EE_exp, t_exp
 
     q_exp.append(data.q)
     O_EE_exp.append(data.O_T_EE[12:15])
+    t_exp.append(data.time)
 
 
 
@@ -145,7 +148,7 @@ def homing(q_last, ttype):
 
 
 def exec_trajectory(t, q, ttype):
-    global t0, status, error_log, q_exp, O_EE_exp
+    global t0, status, error_log, q_exp, O_EE_exp, t_exp
 
     if ttype == "follow_joint":
         result_subscriber = rospy.Subscriber('/effort_joint_trajectory_controller/follow_joint_trajectory/result', FollowJointTrajectoryActionResult, CallbackResult)
@@ -167,6 +170,7 @@ def exec_trajectory(t, q, ttype):
 
     q_exp = []
     O_EE_exp = []
+    t_exp = []
     
     wait_execution((t[-1]-t[0]))
 
@@ -238,7 +242,7 @@ def exec_grasping(t, q):
 
 
 def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype, traj):
-    global t0, status, error_log, q_reg, q_exp, O_EE_exp
+    global t0, status, error_log, q_reg, q_exp, O_EE_exp, t_exp
 
     if len(q_arm) > 0:
         homing(q_arm[0], ttype)
@@ -265,13 +269,20 @@ def launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype, traj):
                 file2.write(f"{O_EE[0]}, {O_EE[1]}, {O_EE[2]}\n")
             file2.close()
 
+            file3 = open(f'{pack_path}/data/results/{traj}/t_exp.csv', 'w')
+            for t in t_exp:
+                file3.write(f"{t-t_exp[0]}\n")
+            file3.close()
+
+            plotter(traj)
+
             aq_data_subscriber.unregister()
 
         t0 = None
         status = None
         error_log = None
         q_reg = []
-    
+
 
 
 def controller_server():
