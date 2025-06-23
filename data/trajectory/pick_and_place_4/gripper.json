@@ -5,7 +5,7 @@
 			"action": "open"
 		},
 		{
-			"t": 2.6,
+			"t": 2.66667,
 			"action": "close"
 		},
 		{
@@ -13,19 +13,11 @@
 			"action": "open"
 		},
 		{
-			"t": 5.86667,
-			"action": "close"
-		},
-		{
-			"t": 5.93333,
-			"action": "open"
-		},
-		{
 			"t": 6,
 			"action": "close"
 		},
 		{
-			"t": 7.46667,
+			"t": 7.5,
 			"action": "open"
 		},
 		{
@@ -33,15 +25,15 @@
 			"action": "close"
 		},
 		{
-			"t": 8.13333,
+			"t": 8.16667,
 			"action": "open"
 		},
 		{
-			"t": 8.2,
+			"t": 8.33333,
 			"action": "close"
 		},
 		{
-			"t": 9.06667,
+			"t": 9.16667,
 			"action": "open"
 		}
 	]

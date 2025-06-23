@@ -25,15 +25,15 @@
 			"action": "close"
 		},
 		{
-			"t": 6.25,
+			"t": 6.33333,
 			"action": "open"
 		},
 		{
-			"t": 6.91667,
+			"t": 7,
 			"action": "close"
 		},
 		{
-			"t": 7.91667,
+			"t": 8,
 			"action": "open"
 		}
 	]

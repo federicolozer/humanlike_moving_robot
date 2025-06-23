@@ -206,7 +206,8 @@ def main(traj):
         tn = time.time()
         file3.close()
         file4.close()
-        print(f"Elapsed time for having a solution from NN: {(tn-t0):>4f} s")
+        NN_time = deepcopy(tn-t0)
+        print(f"Elapsed time for having a solution from NN: {(NN_time):>4f} s")
         print("---------------------------------------------------------------")
 
         # Savitzky-Golay filter -----------------------------------------------------------------
@@ -238,11 +239,12 @@ def main(traj):
                 cnt += 1
             else:
                 pass
-                #t.append(None)     iot ce fa di chescj
+                #t.append(None)
                 #q.append(None)
         
         tn = time.time()
-        print(f"Elapsed time for having a solution from IK client: {(tn-t0):>4f} s")
+        IK_time = deepcopy(tn-t0)
+        print(f"Elapsed time for having a solution from IK client: {(IK_time):>4f} s")
         print("---------------------------------------------------------------")
 
         # Test evaluation ----------------------------------------------------------------
@@ -254,8 +256,9 @@ def main(traj):
 
         diff /= len(q7_array)
         rmse = np.sqrt(diff)
+        error = rmse/(2*2.8973)*100
 
-        print(f"RMSE: {(rmse):>0.4f} rad - {(rmse/(2*2.8973)*100):>0.1f}%")
+        print(f"RMSE: {(rmse):>0.4f} rad - {(error):>0.1f}%")
 
         # Trajectory planning ----------------------------------------------------------------
 
@@ -267,6 +270,15 @@ def main(traj):
 
         controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
         #controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
+
+        tbl = [rmse, error, NN_time, IK_time, len(q7_real_array)]
+        name = traj.replace("_", "\_")
+        print(name)
+        latex = f"\t${name}$ & {tbl[0]:>1.2f} & {tbl[1]:>1.2f} & {tbl[2]:>1.3f} & {tbl[3]:>1.3f} & {tbl[4]}\\\\\n"
+
+        file = open(f'{pack_path}/data/latex/table.txt', 'a')
+        file.write(latex)
+        file.close()
     
     return 1
 

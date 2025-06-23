@@ -9,15 +9,7 @@
 			"action": "close"
 		},
 		{
-			"t": 1.08333,
-			"action": "open"
-		},
-		{
-			"t": 1.16667,
-			"action": "close"
-		},
-		{
-			"t": 1.41667,
+			"t": 1.5,
 			"action": "open"
 		},
 		{
@@ -25,11 +17,11 @@
 			"action": "close"
 		},
 		{
-			"t": 2.08333,
+			"t": 2.16667,
 			"action": "open"
 		},
 		{
-			"t": 3.08333,
+			"t": 3.16667,
 			"action": "close"
 		},
 		{
@@ -37,7 +29,7 @@
 			"action": "open"
 		},
 		{
-			"t": 4.41667,
+			"t": 4.5,
 			"action": "close"
 		},
 		{
@@ -49,11 +41,11 @@
 			"action": "close"
 		},
 		{
-			"t": 6.25,
+			"t": 6.33333,
 			"action": "open"
 		},
 		{
-			"t": 7.25,
+			"t": 7.33333,
 			"action": "close"
 		}
 	]
