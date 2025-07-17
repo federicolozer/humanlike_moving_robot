@@ -5,43 +5,35 @@
 			"action": "open"
 		},
 		{
-			"t": 0,
-			"action": "close"
-		},
-		{
-			"t": 0.5,
-			"action": "open"
-		},
-		{
 			"t": 1.83333,
 			"action": "close"
 		},
 		{
-			"t": 3.5,
+			"t": 3.35,
 			"action": "open"
 		},
 		{
-			"t": 4.33333,
+			"t": 4.23333,
 			"action": "close"
 		},
 		{
-			"t": 5.66667,
+			"t": 5.58333,
 			"action": "open"
 		},
 		{
-			"t": 6.66667,
+			"t": 6.51667,
 			"action": "close"
 		},
 		{
-			"t": 8,
+			"t": 7.98333,
 			"action": "open"
 		},
 		{
-			"t": 8.83333,
+			"t": 8.81667,
 			"action": "close"
 		},
 		{
-			"t": 10.3333,
+			"t": 10.25,
 			"action": "open"
 		}
 	]

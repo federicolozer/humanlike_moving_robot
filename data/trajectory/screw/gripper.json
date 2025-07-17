@@ -9,27 +9,51 @@
 			"action": "close"
 		},
 		{
-			"t": 1.5,
+			"t": 1.03333,
 			"action": "open"
 		},
 		{
-			"t": 1.66667,
+			"t": 1.11667,
 			"action": "close"
 		},
 		{
-			"t": 2.16667,
+			"t": 1.18333,
 			"action": "open"
 		},
 		{
-			"t": 3.16667,
+			"t": 1.23333,
 			"action": "close"
 		},
 		{
-			"t": 3.5,
+			"t": 1.41667,
 			"action": "open"
 		},
 		{
-			"t": 4.5,
+			"t": 1.63333,
+			"action": "close"
+		},
+		{
+			"t": 2.06667,
+			"action": "open"
+		},
+		{
+			"t": 3.05,
+			"action": "close"
+		},
+		{
+			"t": 3.46667,
+			"action": "open"
+		},
+		{
+			"t": 4.18333,
+			"action": "close"
+		},
+		{
+			"t": 4.23333,
+			"action": "open"
+		},
+		{
+			"t": 4.36667,
 			"action": "close"
 		},
 		{
@@ -37,15 +61,15 @@
 			"action": "open"
 		},
 		{
-			"t": 5.83333,
+			"t": 5.78333,
 			"action": "close"
 		},
 		{
-			"t": 6.33333,
+			"t": 6.25,
 			"action": "open"
 		},
 		{
-			"t": 7.33333,
+			"t": 7.23333,
 			"action": "close"
 		}
 	]

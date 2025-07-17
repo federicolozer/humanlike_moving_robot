@@ -5,35 +5,43 @@
 			"action": "open"
 		},
 		{
-			"t": 1.75,
+			"t": 1.70833,
 			"action": "close"
 		},
 		{
-			"t": 3.83333,
+			"t": 3.80833,
 			"action": "open"
 		},
 		{
-			"t": 5,
+			"t": 4.95,
 			"action": "close"
 		},
 		{
-			"t": 6.91667,
+			"t": 6.90833,
 			"action": "open"
 		},
 		{
-			"t": 7.91667,
+			"t": 7.86667,
 			"action": "close"
 		},
 		{
-			"t": 9.83333,
+			"t": 9.8,
 			"action": "open"
 		},
 		{
-			"t": 10.75,
+			"t": 10.6917,
 			"action": "close"
 		},
 		{
-			"t": 13.5,
+			"t": 13.1667,
+			"action": "open"
+		},
+		{
+			"t": 13.175,
+			"action": "close"
+		},
+		{
+			"t": 13.4333,
 			"action": "open"
 		}
 	]

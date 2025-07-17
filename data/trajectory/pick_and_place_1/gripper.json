@@ -5,27 +5,27 @@
 			"action": "open"
 		},
 		{
-			"t": 1.66667,
+			"t": 1.6,
 			"action": "close"
 		},
 		{
-			"t": 3.5,
+			"t": 3.46667,
 			"action": "open"
 		},
 		{
-			"t": 4.66667,
+			"t": 4.6,
 			"action": "close"
 		},
 		{
-			"t": 6.5,
+			"t": 6.4,
 			"action": "open"
 		},
 		{
-			"t": 7.33333,
+			"t": 7.3,
 			"action": "close"
 		},
 		{
-			"t": 7.5,
+			"t": 7.36667,
 			"action": "open"
 		}
 	]

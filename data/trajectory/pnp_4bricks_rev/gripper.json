@@ -5,7 +5,15 @@
 			"action": "open"
 		},
 		{
-			"t": 0.75,
+			"t": 0.716666,
+			"action": "close"
+		},
+		{
+			"t": 0.816666,
+			"action": "open"
+		},
+		{
+			"t": 0.833333,
 			"action": "close"
 		},
 		{
@@ -13,23 +21,31 @@
 			"action": "open"
 		},
 		{
+			"t": 2.88333,
+			"action": "close"
+		},
+		{
 			"t": 2.91667,
-			"action": "close"
-		},
-		{
-			"t": 3.08333,
 			"action": "open"
 		},
 		{
-			"t": 3.75,
+			"t": 3.6,
 			"action": "close"
 		},
 		{
-			"t": 5.58333,
+			"t": 5.28333,
 			"action": "open"
 		},
 		{
-			"t": 6.08333,
+			"t": 5.36667,
+			"action": "close"
+		},
+		{
+			"t": 5.43333,
+			"action": "open"
+		},
+		{
+			"t": 5.98333,
 			"action": "close"
 		},
 		{
@@ -37,11 +53,11 @@
 			"action": "open"
 		},
 		{
-			"t": 8.58333,
+			"t": 8.55,
 			"action": "close"
 		},
 		{
-			"t": 10.0833,
+			"t": 10.05,
 			"action": "open"
 		}
 	]

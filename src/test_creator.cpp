@@ -9,7 +9,7 @@
 #include <Python.h>
 #include <ros/package.h>
 
-int skip = 10;
+int skip = 1;
 std::string pack_path = ros::package::getPath("humanlike_moving_robot");
 std::string yaml_path = pack_path+"/config/mode.yaml";
 

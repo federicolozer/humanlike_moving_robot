@@ -113,8 +113,6 @@ def solver(cPose):
     shoulder = np.array(cPose[4])
     t = np.array(cPose[5])
 
-    print("shoulder = ", shoulder)
-
     segm_ee_finger = np.array(cPose[1])-O_ee
     segm_hand_ee = O_ee-hand
     segm_hand_elbow = elbow-hand
