@@ -7,8 +7,11 @@ import scienceplots
 import rospkg
 import sys
 import os
+from math import floor, ceil
 
 show = True
+adj = 1.5
+ygap = 0.4
 pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
 def plotter(traj):
@@ -89,15 +92,15 @@ def plotter(traj):
 
 
 
-    figsize = (10, 7)
-    fontsize = 18
+    figsize = (10, 3)
+    fontsize = 25
     linewidth = 1.5
     with plt.style.context(["science", "std-colors"]):
         # plot q7
         fig, ax = plt.subplots(figsize=figsize, layout='constrained')
         ax.plot(t, q7, label="$q_7$", linewidth=2)
         ax.plot(t, q7_NN, label="$q_{7,NN}$", linewidth=2)
-        ax.legend(fontsize=fontsize)
+        ax.legend(loc='upper center', ncols=2, fontsize=fontsize)
         ax.autoscale(tight=True)
         ax.spines["bottom"].set_linewidth(linewidth)
         ax.spines["left"].set_linewidth(linewidth)
@@ -111,7 +114,7 @@ def plotter(traj):
         xticks = np.arange(0, round(t[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(-1, 1.4, 0.4)
+        yticks = np.arange(adj*min([min(q7), min(q7_NN)]), adj*max([max(q7), max(q7_NN)])+ygap, ygap)
         ylabels = [f'{y:1.1f}' for y in yticks]
         ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
@@ -130,7 +133,7 @@ def plotter(traj):
         plt.plot(t_exp, x_exp, label="$x_{exp}$", linewidth=2, color='#1f77b4', linestyle='dashed')
         plt.plot(t_exp, y_exp, label="$y_{exp}$", linewidth=2, color='#ff7f0e', linestyle='dashed')
         plt.plot(t_exp, z_exp, label="$z_{exp}$", linewidth=2, color='#2ca02c', linestyle='dashed')
-        fig.legend(loc='outside upper left', ncols=6, fontsize=fontsize)
+        fig.legend(loc='upper center', ncols=6, fontsize=fontsize)
         ax.autoscale(tight=True)
         ax.spines["bottom"].set_linewidth(linewidth)
         ax.spines["left"].set_linewidth(linewidth)
@@ -144,7 +147,7 @@ def plotter(traj):
         xticks = np.arange(0, round(t_exp[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(-0.2, 0.8, 0.2)
+        yticks = np.arange(adj*min([min(x), min(y), min(z)]), adj*max([max(x_exp), max(y_exp), max(z_exp)])+ygap, ygap)
         ylabels = [f'{y:1.1f}' for y in yticks]
         ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
@@ -155,67 +158,7 @@ def plotter(traj):
         fig.savefig(f'{pack_path}/data/plots/{traj}/plot_OEE.pdf', dpi=300)
         plt.close()
 
-        #plot x, y, z
-        fig = plt.figure(figsize=figsize, layout='constrained')
-        ax = fig.add_subplot(projection='3d')
-        ax.plot(x, y, z, label="$O_{EE}$", linewidth=2)
-        ax.plot(x_exp, y_exp, z_exp, label="$O_{EE,exp}$", linewidth=2)
-        ax.legend(fontsize=fontsize)
-        ax.autoscale(tight=True)
-        ax.spines["bottom"].set_linewidth(linewidth)
-        ax.spines["left"].set_linewidth(linewidth)
-        ax.spines["top"].set_linewidth(linewidth)
-        ax.spines["right"].set_linewidth(linewidth)
-
-        plt.minorticks_off()
-        ax.tick_params(which='major', width=linewidth, length=6)
-        ax.tick_params(which='minor', width=linewidth, length=3)
-        xticks = np.arange(min(x), max(x), 0.1)
-        xlabels = [f'{x:1.1f}' for x in xticks]
-        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(min(y), max(y), 0.1)
-        ylabels = [f'{y:1.1f}' for y in yticks]
-        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
-        zticks = np.arange(min(z), max(z), 0.1)
-        zlabels = [f'{z:1.1f}' for z in zticks]
-        ax.set_zticks(zticks, labels=zlabels, fontsize=fontsize)
-        plt.xlabel("x [m]", fontsize=fontsize, labelpad=15)
-        plt.ylabel("y [m]", fontsize=fontsize, labelpad=15)
-        fig.text(0.9, 0.5, "z [m]", fontsize=fontsize)
-
-        if show:
-            plt.show()
-        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_xyz.pdf', dpi=300)
-        plt.close()
-
-        #plot q
-        fig, ax = plt.subplots(figsize=figsize, layout='constrained')
-        plt.plot(t_exp, q_exp, label=["$q_1$", "$q_2$", "$q_3$", "$q_4$", "$q_5$", "$q_6$", "$q_7$"], linewidth=2)
-        fig.legend(loc='outside upper left', ncols=7, fontsize=fontsize)
-        ax.autoscale(tight=True)
-        ax.spines["bottom"].set_linewidth(linewidth)
-        ax.spines["left"].set_linewidth(linewidth)
-        ax.spines["top"].set_linewidth(linewidth)
-        ax.spines["right"].set_linewidth(linewidth)
-
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
-        ax.tick_params(which='major', width=linewidth, length=6)
-        ax.tick_params(which='minor', width=linewidth, length=3)
-        xticks = np.arange(0, round(t_exp[-1]), 2)
-        xlabels = [f'{x:1.0f}' for x in xticks]
-        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(-3, 4, 1)
-        ylabels = [f'{y:1.1f}' for y in yticks]
-        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
-        plt.xlabel("t [s]", fontsize=fontsize)
-        plt.ylabel("$q$ [rad]", fontsize=fontsize)
-
-        if show:
-            plt.show()
-        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_q.pdf', dpi=300)
-        plt.close()
-
+       
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

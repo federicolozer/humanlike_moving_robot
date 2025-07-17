@@ -269,8 +269,7 @@ def main(traj):
         print(f"Solutions found: {cnt}/{len(trajectory['waypoints'])}")
         print("---------------------------------------------------------------")
 
-        controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
-        #controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
+        #controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
 
         name = traj.replace("_", "\_")
         latex = f"\t${name}$ & {rmse:>1.2f} & {error:>1.2f} & {NN_time:>1.3f} & {IK_time:>1.3f} & {cnt}/{len(trajectory['waypoints'])}\\\\\n"

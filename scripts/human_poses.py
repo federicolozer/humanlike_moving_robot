@@ -64,22 +64,31 @@ def reader(target=None):
 
 
 
-def adjust(ee_frame, q7, ah, bh):
+def adjust(ee_frame, q7, segm_hand_elbow, segm_hand_ee, segm_elbow_shoulder, shoulder):
     ar = 0.594
     br = 0.316
-    ratio = (ar+br)/(ah+bh)
-    ch = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3])))
+    ah = np.linalg.norm(segm_hand_elbow)+np.linalg.norm(segm_hand_ee)
+    bh = np.linalg.norm(segm_elbow_shoulder)
 
-    ee_frame[0:2, 3] *= ratio
-    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*ratio)+base_height
-    cr = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3])))
+    l_ratio = (ar+br)/(ah+bh)
+    ch = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3]-shoulder)))
+
+    ee_frame[0:2, 3] *= l_ratio
+    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*l_ratio)+base_height
+    cr = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3]-shoulder)))
 
     alphar = np.arccos((ar**2+cr**2-br**2)/(2*ar*cr))
     alphah = np.arccos((ah**2+ch**2-bh**2)/(2*ah*ch))
     alpha_ratio = (alphah)/(alphar)
 
-    #q7 /= alpha_ratio
-    #q7 = q7 + alphah - alphar
+    #print("\n---------------------")
+    #print("num = ", ah**2+ch**2-bh**2)
+    #print("cos = ", (ah**2+ch**2-bh**2)/(2*ah*ch))
+    #print("q7 = ", q7)
+    #print("alphar = ", q7-alphar)
+    #print("alphah = ", q7-alphah)
+
+    q7 *= alpha_ratio
 
     return ee_frame, q7
 
@@ -120,9 +129,11 @@ def solver(cPose):
 
     O_q7 = hand+(np.dot(segm_hand_elbow, segm_hand_ee)/np.linalg.norm(segm_hand_ee))*zAxis
     segm_q7_elbow = elbow-O_q7
-    q7 = pi/4 - np.arccos(np.dot(segm_q7_elbow/np.linalg.norm(segm_q7_elbow), -xAxis))
+    q7 = np.arccos(np.dot(segm_q7_elbow/np.linalg.norm(segm_q7_elbow), -xAxis))
+    
+    ee_frame, q7 = adjust(ee_frame, q7, segm_hand_elbow, segm_hand_ee, segm_elbow_shoulder, shoulder)
 
-    ee_frame, q7 = adjust(ee_frame, q7, np.linalg.norm(segm_hand_elbow)+np.linalg.norm(segm_hand_ee), np.linalg.norm(segm_elbow_shoulder))
+    q7 = pi/4 - q7
 
     res = [list(ee_frame[0:3, 0]), list(ee_frame[0:3, 1]), list(ee_frame[0:3, 2]), list(ee_frame[0:3, 3]), q7]
 
