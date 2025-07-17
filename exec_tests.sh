@@ -1,0 +1,1 @@
+rosrun humanlike_moving_robot main.py pick_and_place pick_and_place_1 pick_and_place_2 pick_and_place_3 pick_and_place_4 stack_bricks pnp_4bricks pnp_4bricks_rev pnp_4bricks_stack pnp_4bricks_flip pnp_4bricks_rot follow_profile

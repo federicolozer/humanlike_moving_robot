@@ -15,6 +15,7 @@ import rospkg
 import csv
 from scipy.signal import savgol_filter
 import os
+import sys
 
 dispFrame = False
 ttype = "follow_joint"
@@ -271,10 +272,8 @@ def main(traj):
         controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
         #controller.launch_trajectory(t_arm, q_arm, t_gripper, q_gripper, ttype)
 
-        tbl = [rmse, error, NN_time, IK_time, len(q7_real_array)]
         name = traj.replace("_", "\_")
-        print(name)
-        latex = f"\t${name}$ & {tbl[0]:>1.2f} & {tbl[1]:>1.2f} & {tbl[2]:>1.3f} & {tbl[3]:>1.3f} & {tbl[4]}\\\\\n"
+        latex = f"\t${name}$ & {rmse:>1.2f} & {error:>1.2f} & {NN_time:>1.3f} & {IK_time:>1.3f} & {cnt}/{len(trajectory['waypoints'])}\\\\\n"
 
         file = open(f'{pack_path}/data/latex/table.txt', 'a')
         file.write(latex)
@@ -290,12 +289,16 @@ def main(traj):
 
 
 if __name__ == '__main__':
-    while True:
-        print("\n===============================================================")
-        traj = input("Type the trajectory to perform or quit to exit:\n")
+    if len(sys.argv) > 1:
+        for traj in sys.argv[1:]:
+            main(traj)
+    else:
+        while True:
+            print("\n===============================================================")
+            traj = input("Type the trajectory to perform or quit to exit:\n")
 
-        if traj == "quit":
-            #endTransmission(8080)
-            break
+            if traj == "quit":
+                #endTransmission(8080)
+                break
 
-        main(traj)
+            main(traj)

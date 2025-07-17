@@ -8,6 +8,7 @@ import rospkg
 import sys
 import os
 
+show = True
 pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
 def plotter(traj):
@@ -110,13 +111,14 @@ def plotter(traj):
         xticks = np.arange(0, round(t[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(-1, 1, 0.4)
+        yticks = np.arange(-1, 1.4, 0.4)
         ylabels = [f'{y:1.1f}' for y in yticks]
         ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
         plt.ylabel("$q_7$ [rad]", fontsize=fontsize)
 
-        plt.show()
+        if show:
+            plt.show()
         fig.savefig(f'{pack_path}/data/plots/{traj}/plot_q7.pdf', dpi=300)
         plt.close()
         
@@ -142,13 +144,14 @@ def plotter(traj):
         xticks = np.arange(0, round(t_exp[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(-0.6, 1.4, 0.4)
+        yticks = np.arange(-0.2, 0.8, 0.2)
         ylabels = [f'{y:1.1f}' for y in yticks]
         ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
         plt.ylabel("$O_{EE}$ [m]", fontsize=fontsize)
 
-        plt.show()
+        if show:
+            plt.show()
         fig.savefig(f'{pack_path}/data/plots/{traj}/plot_OEE.pdf', dpi=300)
         plt.close()
 
@@ -180,7 +183,8 @@ def plotter(traj):
         plt.ylabel("y [m]", fontsize=fontsize, labelpad=15)
         fig.text(0.9, 0.5, "z [m]", fontsize=fontsize)
 
-        plt.show()
+        if show:
+            plt.show()
         fig.savefig(f'{pack_path}/data/plots/{traj}/plot_xyz.pdf', dpi=300)
         plt.close()
 
@@ -207,7 +211,8 @@ def plotter(traj):
         plt.xlabel("t [s]", fontsize=fontsize)
         plt.ylabel("$q$ [rad]", fontsize=fontsize)
 
-        plt.show()
+        if show:
+            plt.show()
         fig.savefig(f'{pack_path}/data/plots/{traj}/plot_q.pdf', dpi=300)
         plt.close()
 
