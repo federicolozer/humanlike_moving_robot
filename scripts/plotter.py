@@ -10,7 +10,6 @@ import os
 from math import floor, ceil
 
 show = True
-adj = 1.5
 ygap = 0.4
 pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
@@ -100,7 +99,7 @@ def plotter(traj):
         fig, ax = plt.subplots(figsize=figsize, layout='constrained')
         ax.plot(t, q7, label="$q_7$", linewidth=2)
         ax.plot(t, q7_NN, label="$q_{7,NN}$", linewidth=2)
-        ax.legend(loc='upper center', ncols=2, fontsize=fontsize)
+        #ax.legend(loc='outside upper left', ncols=2, fontsize=fontsize)
         ax.autoscale(tight=True)
         ax.spines["bottom"].set_linewidth(linewidth)
         ax.spines["left"].set_linewidth(linewidth)
@@ -114,7 +113,7 @@ def plotter(traj):
         xticks = np.arange(0, round(t[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(adj*min([min(q7), min(q7_NN)]), adj*max([max(q7), max(q7_NN)])+ygap, ygap)
+        yticks = np.arange(min([min(q7), min(q7_NN)])-ygap, max([max(q7), max(q7_NN)])+ygap*2, ygap)
         ylabels = [f'{y:1.1f}' for y in yticks]
         ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
@@ -133,7 +132,7 @@ def plotter(traj):
         plt.plot(t_exp, x_exp, label="$x_{exp}$", linewidth=2, color='#1f77b4', linestyle='dashed')
         plt.plot(t_exp, y_exp, label="$y_{exp}$", linewidth=2, color='#ff7f0e', linestyle='dashed')
         plt.plot(t_exp, z_exp, label="$z_{exp}$", linewidth=2, color='#2ca02c', linestyle='dashed')
-        fig.legend(loc='upper center', ncols=6, fontsize=fontsize)
+        #fig.legend(loc='outside upper left', ncols=6, fontsize=fontsize)
         ax.autoscale(tight=True)
         ax.spines["bottom"].set_linewidth(linewidth)
         ax.spines["left"].set_linewidth(linewidth)
@@ -147,7 +146,7 @@ def plotter(traj):
         xticks = np.arange(0, round(t_exp[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(adj*min([min(x), min(y), min(z)]), adj*max([max(x_exp), max(y_exp), max(z_exp)])+ygap, ygap)
+        yticks = np.arange(min([min(x), min(y), min(z)])-ygap, max([max(x), max(y), max(z)])+ygap*2, ygap)
         ylabels = [f'{y:1.1f}' for y in yticks]
         ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
