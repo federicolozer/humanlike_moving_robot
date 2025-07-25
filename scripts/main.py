@@ -249,7 +249,7 @@ def main(traj):
 
         # Savitzky-Golay filter -----------------------------------------------------------------
 
-        q7_array = savgol_filter(q7_array, window_length=int(0.2*len(q7_array)), polyorder=3)
+        #q7_array = savgol_filter(q7_array, window_length=int(0.2*len(q7_array)), polyorder=3)
 
         # Inverse kinematics -----------------------------------------------------------------
 
@@ -269,18 +269,6 @@ def main(traj):
             if not res == []:
                 sol_array.append(res)
                 cnt += 1
-
-            #q_array = optMove(response, q_actual_array)
-
-            #if not len(q_array) == 0:
-            #    t_arm.append(t_array[i]*sd_rate)
-            #    q_arm.append(q_array)
-            #    q_actual_array = q_array
-            #    cnt += 1
-            #else:
-            #    pass
-            #    #t.append(None)
-            #    #q.append(None)
         
         tn = time.time()
         IK_time = deepcopy(tn-t0)
@@ -337,13 +325,12 @@ if __name__ == '__main__':
         for traj in sys.argv[1:]:
             main(traj)
     else:
-        #while True:
-        print("\n===============================================================")
-        #traj = input("Type the trajectory to perform or quit to exit:\n")
-        traj = "pnp_4bricks_flip"
+        while True:
+            print("\n===============================================================")
+            traj = input("Type the trajectory to perform or quit to exit:\n")
 
-        #if traj == "quit":
-        #    #endTransmission(8080)
-        #    break
+            if traj == "quit":
+                #endTransmission(8080)
+                break
 
         main(traj)

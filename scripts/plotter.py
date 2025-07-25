@@ -111,7 +111,7 @@ def plotter(traj):
         ax.tick_params(which='major', width=linewidth, length=6)
         ax.tick_params(which='minor', width=linewidth, length=3)
         xticks = np.arange(0, round(t[-1]), 2)
-        xlabels = [f'{x:1.0f}' for x in xticks]
+        xlabels = [] #[f'{x:1.0f}' for x in xticks]
         ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
         yticks = np.arange(min([min(q7), min(q7_NN)])-ygap, max([max(q7), max(q7_NN)])+ygap*2, ygap)
         ylabels = [f'{y:1.1f}' for y in yticks]
