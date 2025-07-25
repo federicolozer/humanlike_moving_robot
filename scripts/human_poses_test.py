@@ -71,22 +71,11 @@ def adjust(ee_frame, q7, segm_hand_elbow, segm_hand_ee, segm_elbow_shoulder, sho
     l_ratio = (ar+br)/(ah+bh)
     ch = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3]-shoulder)))
 
-    ee_frame[0:2, 3] *= l_ratio
-    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*l_ratio)+base_height
-    cr = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3]-shoulder)))
+    ee_frame[0, 3] *= 1.3
+    ee_frame[1, 3] *= 1.3
+    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.3)+base_height
 
-    alphar = np.arccos((ar**2+cr**2-br**2)/(2*ar*cr))
-    alphah = np.arccos((ah**2+ch**2-bh**2)/(2*ah*ch))
-    alpha_ratio = (alphah)/(alphar)
-
-    #print("\n---------------------")
-    #print("num = ", ah**2+ch**2-bh**2)
-    #print("cos = ", (ah**2+ch**2-bh**2)/(2*ah*ch))
-    #print("q7 = ", q7)
-    #print("alphar = ", q7-alphar)
-    #print("alphah = ", q7-alphah)
-
-    q7 *= alpha_ratio
+    q7 /= 1.35
 
     return ee_frame, q7
 
@@ -132,7 +121,11 @@ def solver(cPose):
     segm_q7_elbow = elbow-O_q7
     q7 = np.arccos(np.dot(segm_q7_elbow/np.linalg.norm(segm_q7_elbow), -xAxis))
     
-    ee_frame, q7 = adjust(ee_frame, q7, segm_hand_elbow, segm_hand_ee, segm_elbow_shoulder, shoulder)
+    ee_frame[0, 3] *= 1.3
+    ee_frame[1, 3] *= 1.3
+    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.3)+base_height
+
+    #q7 /= 1.35
 
     q7 = pi/4 - q7
 
