@@ -108,6 +108,44 @@ def optMove(q_array_list, q_actual_array):
 
 
 
+def dijkstra(sol_array):
+    print("-------dijkstra-----------------")
+    q_array = []
+    path = 0
+    doOnce = True
+    print(sol_array[0])
+    for start in sol_array[0]:
+        q_array = [start[0]]
+        for sol in sol_array[1:]:
+            dist = 100
+            for node in sol: 
+                ndist = abs(q_array[-1]-node[0])
+                if ndist < dist:
+                    dist = ndist
+                    pnt = node[0]
+            q_array.append(pnt)
+            path += dist
+
+        print("---------------------")
+        print(q_array)
+        print("====")
+        print(path)
+
+
+    """for sol in sol_array:
+        if doOnce:
+            q_array.append()
+
+
+            print("----------")
+            for node in sol:
+                
+
+                print(node[0])"""
+    return q_array
+
+
+
 def sel_mode():
     with open(yaml_path, 'r') as file:
         param = yaml.safe_load(file)["mode"]
@@ -222,26 +260,13 @@ def main(traj):
         print("===============================================================")
         t0 = time.time()
         cnt = 0
+        sol_array = []
         for i in range(len(inputData_array)):
             inputData = inputData_array[i]
             q7 = q7_array[i]
             
             data = [float(inputData[0, 0]), float(inputData[0, 1]), float(inputData[0, 2]), float(inputData[0, 3]), float(inputData[0, 4]), float(inputData[0, 5]), float(inputData[0, 6]), q7, float(mode), float(dispFrame)]
-            response = IK_fromQuater_client(data)
-
-            print(len(response), " - ", q7)
-
-            q_array = optMove(response, q_actual_array)
-
-            if not len(q_array) == 0:
-                t_arm.append(t_array[i]*sd_rate)
-                q_arm.append(q_array)
-                q_actual_array = q_array
-                cnt += 1
-            else:
-                pass
-                #t.append(None)
-                #q.append(None)
+            sol_array.append(IK_fromQuater_client(data))
         
         tn = time.time()
         IK_time = deepcopy(tn-t0)
@@ -269,10 +294,42 @@ def main(traj):
         print(f"Solutions found: {cnt}/{len(trajectory['waypoints'])}")
         print("---------------------------------------------------------------")
 
-        controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
+
+
+
+
+
+
+
+
+
+
+        q_array = dijkstra(sol_array)
+
+        #q_array = optMove(response, q_actual_array)
+
+        if not len(q_array) == 0:
+            t_arm.append(t_array[i]*sd_rate)
+            q_arm.append(q_array)
+            q_actual_array = q_array
+            cnt += 1
+        else:
+            pass
+            #t.append(None)
+            #q.append(None)
+
+
+
+
+
+
+
+
+
+        #controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
 
         name = traj.replace("_", "\_")
-        latex = f"\t${name}$ & {rmse:>1.2f} & {error:>1.2f} & {NN_time:>1.3f} & {IK_time:>1.3f} & {cnt}/{len(trajectory['waypoints'])}\\\\   %{traj}\n"
+        latex = f"\t${name}$ & {rmse:>1.3f} & {error:>1.3f} & {NN_time:>1.3f} & {IK_time:>1.3f} & {cnt}/{len(trajectory['waypoints'])}\\\\   %{traj}\n"
 
         file = open(f'{pack_path}/data/latex/table.txt', 'a')
         file.write(latex)
@@ -292,12 +349,13 @@ if __name__ == '__main__':
         for traj in sys.argv[1:]:
             main(traj)
     else:
-        while True:
-            print("\n===============================================================")
-            traj = input("Type the trajectory to perform or quit to exit:\n")
+        #while True:
+        print("\n===============================================================")
+        #traj = input("Type the trajectory to perform or quit to exit:\n")
+        traj = "pnp_4bricks_flip"
 
-            if traj == "quit":
-                #endTransmission(8080)
-                break
+        #if traj == "quit":
+        #    #endTransmission(8080)
+        #    break
 
-            main(traj)
+        main(traj)
