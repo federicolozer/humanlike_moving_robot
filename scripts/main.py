@@ -111,37 +111,35 @@ def optMove(q_array_list, q_actual_array):
 def dijkstra(sol_array):
     print("-------dijkstra-----------------")
     q_array = []
-    path = 0
+    dist = None
+    jnt = [0, 1, 2, 3, 4, 5, 6]
     doOnce = True
-    print(sol_array[0])
     for start in sol_array[0]:
-        q_array = [start[0]]
+        path = 0
+        q_arrays = [start]
         for sol in sol_array[1:]:
-            dist = 100
+            dst = None
+            mn = sum([x[jnt] for x in q_arrays])/len(q_arrays)
             for node in sol: 
-                ndist = abs(q_array[-1]-node[0])
-                if ndist < dist:
-                    dist = ndist
-                    pnt = node[0]
-            q_array.append(pnt)
-            path += dist
+                ndst = sum(abs(mn-node[jnt]))
+                if dst == None or ndst < dst:
+                    dst = ndst
+                    pnt = node
+            q_arrays.append(pnt)
+            path += dst
+
 
         print("---------------------")
-        print(q_array)
-        print("====")
         print(path)
 
 
-    """for sol in sol_array:
-        if doOnce:
-            q_array.append()
+        if dist == None or path < dist:
+            dist = path
+            q_array = q_arrays
 
+    print("---------------------")
+    print("Distance = ", dist)
 
-            print("----------")
-            for node in sol:
-                
-
-                print(node[0])"""
     return q_array
 
 
@@ -233,7 +231,7 @@ def main(traj):
             O_EE = np.array([float(waypoint["x"]), float(waypoint["y"]), float(waypoint["z"])])
 
             inputData = np.matrix(np.concatenate((quater, O_EE), axis=0))
-            q7 = float(nn.neuralNetwork(model, inputData)[0]) 
+            q7 = float(nn.neuralNetwork(model, inputData)[0])
 
             inputData_array.append(deepcopy(inputData))
             q7_array.append(deepcopy(q7))
@@ -251,7 +249,7 @@ def main(traj):
 
         # Savitzky-Golay filter -----------------------------------------------------------------
 
-        #q7_array = savgol_filter(q7_array, window_length=int(0.1*len(q7_array)), polyorder=3)
+        q7_array = savgol_filter(q7_array, window_length=int(0.2*len(q7_array)), polyorder=3)
 
         # Inverse kinematics -----------------------------------------------------------------
 
@@ -266,7 +264,23 @@ def main(traj):
             q7 = q7_array[i]
             
             data = [float(inputData[0, 0]), float(inputData[0, 1]), float(inputData[0, 2]), float(inputData[0, 3]), float(inputData[0, 4]), float(inputData[0, 5]), float(inputData[0, 6]), q7, float(mode), float(dispFrame)]
-            sol_array.append(IK_fromQuater_client(data))
+            res = IK_fromQuater_client(data)
+
+            if not res == []:
+                sol_array.append(res)
+                cnt += 1
+
+            #q_array = optMove(response, q_actual_array)
+
+            #if not len(q_array) == 0:
+            #    t_arm.append(t_array[i]*sd_rate)
+            #    q_arm.append(q_array)
+            #    q_actual_array = q_array
+            #    cnt += 1
+            #else:
+            #    pass
+            #    #t.append(None)
+            #    #q.append(None)
         
         tn = time.time()
         IK_time = deepcopy(tn-t0)
@@ -294,39 +308,13 @@ def main(traj):
         print(f"Solutions found: {cnt}/{len(trajectory['waypoints'])}")
         print("---------------------------------------------------------------")
 
-
-
-
-
-
-
-
-
-
-
         q_array = dijkstra(sol_array)
 
-        #q_array = optMove(response, q_actual_array)
+        for i in range(len(q_array)):
+                t_arm.append(t_array[i]*sd_rate)
+                q_arm.append(q_array[i])
 
-        if not len(q_array) == 0:
-            t_arm.append(t_array[i]*sd_rate)
-            q_arm.append(q_array)
-            q_actual_array = q_array
-            cnt += 1
-        else:
-            pass
-            #t.append(None)
-            #q.append(None)
-
-
-
-
-
-
-
-
-
-        #controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
+        controller_client(t_arm, q_arm, t_gripper, q_gripper, ttype, traj)
 
         name = traj.replace("_", "\_")
         latex = f"\t${name}$ & {rmse:>1.3f} & {error:>1.3f} & {NN_time:>1.3f} & {IK_time:>1.3f} & {cnt}/{len(trajectory['waypoints'])}\\\\   %{traj}\n"
