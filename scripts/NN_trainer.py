@@ -144,7 +144,7 @@ def save_config():
 
 
 if __name__ == "__main__":
-    epochs = 100
+    epochs = 150
     batch_list = [1000]
     n1_list = [30]
     n2_list = [70]

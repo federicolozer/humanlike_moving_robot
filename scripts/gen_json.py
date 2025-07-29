@@ -7,7 +7,7 @@ import rospkg
 
 pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 data_path = f"{pack_path}/data/tracking_data"
-json_path = f"{pack_path}/data/tracking_data/data.json"
+json_path = f"{pack_path}/data/data.json"
 
 
 
