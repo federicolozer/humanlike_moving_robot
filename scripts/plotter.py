@@ -91,70 +91,72 @@ def plotter(traj):
 
 
 
-    figsize = (10, 3)
+    figsize = (10, 7)
     fontsize = 25
-    linewidth = 1.5
+    linewidth = 3
+    boxwidth = 1.5
     with plt.style.context(["science", "std-colors"]):
         # plot q7
-        fig, ax = plt.subplots(figsize=figsize, layout='constrained')
-        ax.plot(t, q7, label="$q_7$", linewidth=2)
-        ax.plot(t, q7_NN, label="$q_{7,NN}$", linewidth=2)
-        #ax.legend(loc='outside upper left', ncols=2, fontsize=fontsize)
-        ax.autoscale(tight=True)
-        ax.spines["bottom"].set_linewidth(linewidth)
-        ax.spines["left"].set_linewidth(linewidth)
-        ax.spines["top"].set_linewidth(linewidth)
-        ax.spines["right"].set_linewidth(linewidth)
+        fig = plt.figure(figsize=figsize)
+        ax1 = fig.add_subplot()
+        ax1.set_position([0.1, 0.54, 0.89, 0.38])
+        plt.plot(t, q7, label="$q_7$", linewidth=linewidth, color="black")
+        plt.plot(t, q7_NN, label="$q_{7,NN}$", linewidth=linewidth, color="grey", linestyle='dashed')
 
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
-        ax.tick_params(which='major', width=linewidth, length=6)
-        ax.tick_params(which='minor', width=linewidth, length=3)
+        ax1.autoscale(tight=True)
+        ax1.spines["bottom"].set_linewidth(boxwidth)
+        ax1.spines["left"].set_linewidth(boxwidth)
+        ax1.spines["top"].set_linewidth(boxwidth)
+        ax1.spines["right"].set_linewidth(boxwidth)
+
+        ax1.xaxis.set_ticks_position('bottom')
+        ax1.yaxis.set_ticks_position('left')
+        ax1.tick_params(which='major', width=linewidth, length=6)
+        ax1.tick_params(which='minor', width=linewidth, length=3)
         xticks = np.arange(0, round(t[-1]), 2)
-        xlabels = [] #[f'{x:1.0f}' for x in xticks]
-        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
+        xlabels = []
+        ax1.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
         yticks = np.arange(min([min(q7), min(q7_NN)])-ygap, max([max(q7), max(q7_NN)])+ygap*2, ygap)
         ylabels = [f'{y:1.1f}' for y in yticks]
-        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
-        plt.xlabel("t [s]", fontsize=fontsize)
+        ax1.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.ylabel("$q_7$ [rad]", fontsize=fontsize)
-
-        if show:
-            plt.show()
-        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_q7.pdf', dpi=300)
-        plt.close()
         
         #plot O_EE
-        fig, ax = plt.subplots(figsize=figsize, layout='constrained')
-        plt.plot(t, x, label="$x$", linewidth=2, color='#1f77b4')
-        plt.plot(t, y, label="$y$", linewidth=2, color='#ff7f0e')
-        plt.plot(t, z, label="$z$", linewidth=2, color='#2ca02c')
-        plt.plot(t_exp, x_exp, label="$x_{exp}$", linewidth=2, color='#1f77b4', linestyle='dashed')
-        plt.plot(t_exp, y_exp, label="$y_{exp}$", linewidth=2, color='#ff7f0e', linestyle='dashed')
-        plt.plot(t_exp, z_exp, label="$z_{exp}$", linewidth=2, color='#2ca02c', linestyle='dashed')
-        #fig.legend(loc='outside upper left', ncols=6, fontsize=fontsize)
-        ax.autoscale(tight=True)
-        ax.spines["bottom"].set_linewidth(linewidth)
-        ax.spines["left"].set_linewidth(linewidth)
-        ax.spines["top"].set_linewidth(linewidth)
-        ax.spines["right"].set_linewidth(linewidth)
+        ax2 = fig.add_subplot()
+        ax2.set_position([0.1, 0.12, 0.89, 0.38])
+        plt.plot(t, x, label="$x$", linewidth=linewidth, color='royalblue')
+        plt.plot(t, y, label="$y$", linewidth=linewidth, color='limegreen')
+        plt.plot(t, z, label="$z$", linewidth=linewidth, color='firebrick')
+        plt.plot(t_exp, x_exp, label="$x_{exp}$", linewidth=linewidth, color='deepskyblue', linestyle='dashed')
+        plt.plot(t_exp, y_exp, label="$y_{exp}$", linewidth=linewidth, color='lime', linestyle='dashed')
+        plt.plot(t_exp, z_exp, label="$z_{exp}$", linewidth=linewidth, color='orangered', linestyle='dashed')
 
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
-        ax.tick_params(which='major', width=linewidth, length=6)
-        ax.tick_params(which='minor', width=linewidth, length=3)
+        ax2.autoscale(tight=True)
+        ax2.spines["bottom"].set_linewidth(boxwidth)
+        ax2.spines["left"].set_linewidth(boxwidth)
+        ax2.spines["top"].set_linewidth(boxwidth)
+        ax2.spines["right"].set_linewidth(boxwidth)
+
+        ax2.xaxis.set_ticks_position('bottom')
+        ax2.yaxis.set_ticks_position('left')
+        ax2.tick_params(which='major', width=linewidth, length=6)
+        ax2.tick_params(which='minor', width=linewidth, length=3)
         xticks = np.arange(0, round(t_exp[-1]), 2)
         xlabels = [f'{x:1.0f}' for x in xticks]
-        ax.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
-        yticks = np.arange(min([min(x), min(y), min(z)])-ygap, max([max(x), max(y), max(z)])+ygap*2, ygap)
+        ax2.set_xticks(xticks, labels=xlabels, fontsize=fontsize)
+        yticks = np.arange(min([min(x), min(y), min(z)])-0.1, max([max(x), max(y), max(z)])+0.2, ygap/2)
         ylabels = [f'{y:1.1f}' for y in yticks]
-        ax.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
+        ax2.set_yticks(yticks, labels=ylabels, fontsize=fontsize)
         plt.xlabel("t [s]", fontsize=fontsize)
         plt.ylabel("$O_{EE}$ [m]", fontsize=fontsize)
 
+        fig.legend(loc='outside upper center', ncols=8, fontsize=fontsize, handlelength=1, borderpad=0.0, handletextpad=0.4, borderaxespad=0.2, columnspacing=1)
+        fig.text(0.01, 0.88, "(a)", fontsize=fontsize)
+        fig.text(0.01, 0.46, "(b)", fontsize=fontsize)
+
         if show:
             plt.show()
-        fig.savefig(f'{pack_path}/data/plots/{traj}/plot_OEE.pdf', dpi=300)
+        fig.savefig(f'{pack_path}/data/plots/{traj}.pdf', dpi=300)
         plt.close()
 
 
