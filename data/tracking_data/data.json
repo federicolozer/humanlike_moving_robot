@@ -14,11 +14,8 @@
     "Data_13": "dir_front_or_top_dx_lin.csv",
     "Data_14": "dir_bottom_or_rnd_dx_circ.csv",
     "Data_15": "dir_top_or_front_dx_lin.csv",
-    "Data_16": "test_pnp_4bricks_std.csv",
-    "Data_17": "test_pnp_4bricks.csv",
-    "Data_18": "test_pnp_2bricks_box.csv",
-    "Data_19": "test_pnp_4bricks_flip.csv",
-    "Data_20": "test_pnp_4bricks_rev.csv",
-    "Data_21": "test_pnp_4bricks_rot.csv",
-    "Data_22": "test_pnp_4bricks_stack.csv"
+    "Data_16": "test_pnp_4bricks.csv",
+    "Data_17": "test_pnp_4bricks_rev.csv",
+    "Data_18": "test_pnp_4bricks_rot.csv",
+    "Data_19": "test_pnp_4bricks_stack.csv"
 }
