@@ -63,19 +63,11 @@ def reader(target):
 
 
 def adjust(ee_frame, q7, segm_hand_elbow, segm_hand_ee, segm_elbow_shoulder, shoulder):
-    ar = 0.594
-    br = 0.316
-    ah = np.linalg.norm(segm_hand_elbow)+np.linalg.norm(segm_hand_ee)
-    bh = np.linalg.norm(segm_elbow_shoulder)
-
-    l_ratio = (ar+br)/(ah+bh)
-    ch = deepcopy(np.linalg.norm(np.array(ee_frame[0:3, 3]-shoulder)))
-
     ee_frame[0, 3] *= 1.3
     ee_frame[1, 3] *= 1.3
     ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.3)+base_height
 
-    q7 /= 1.35
+    q7 *= 1.1
 
     return ee_frame, q7
 
@@ -119,15 +111,14 @@ def solver(cPose):
 
     O_q7 = hand+(np.dot(segm_hand_elbow, segm_hand_ee)/np.linalg.norm(segm_hand_ee))*zAxis
     segm_q7_elbow = elbow-O_q7
-    q7 = np.arccos(np.dot(segm_q7_elbow/np.linalg.norm(segm_q7_elbow), -xAxis))
+    q7h = np.arccos(np.dot(segm_q7_elbow/np.linalg.norm(segm_q7_elbow), -xAxis))
     
-    ee_frame[0, 3] *= 1.3
-    ee_frame[1, 3] *= 1.3
-    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.3)+base_height
+    ee_frame[0, 3] *= 1.2
+    ee_frame[1, 3] *= 1.2
+    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.2)+base_height
 
-    #q7 /= 1.35
-
-    q7 = pi/4 - q7
+    q7r =q7h*1.1
+    q7 = pi/4 - q7r
 
     res = [list(ee_frame[0:3, 0]), list(ee_frame[0:3, 1]), list(ee_frame[0:3, 2]), list(ee_frame[0:3, 3]), q7, t, grip_wid]
 

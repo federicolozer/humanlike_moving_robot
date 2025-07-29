@@ -4,22 +4,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scienceplots
-#import rospkg
+import rospkg
 import sys
 import os
 from math import floor, ceil
 
 show = True
 ygap = 0.4
-#pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
-pack_path = "/home/pain/Desktop/humanlike_moving_robot"
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
 def plotter(traj):
-    try:
-        os.mkdir(f'{pack_path}/data/plots/{traj}')
-    except:
-        pass
-
     file1 = open(f'{pack_path}/data/results/{traj}/q7.csv', 'r')
     file2 = open(f'{pack_path}/data/results/{traj}/q7_NN.csv', 'r')
     file3 = open(f'{pack_path}/data/results/{traj}/t.csv', 'r')
@@ -93,7 +87,7 @@ def plotter(traj):
 
 
     figsize = (10, 7)
-    fontsize = 25
+    fontsize = 30
     linewidth = 3
     boxwidth = 1.5
     with plt.style.context(["science", "std-colors"]):

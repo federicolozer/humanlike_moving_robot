@@ -144,24 +144,6 @@ def save_config():
 
 
 if __name__ == "__main__":
-    epochs = 20
-    batch_list = [1000]
-    n1_list = [30]
-    n2_list = [70]
-    n3_list = [60, 65, 70]
-    n4_list = [60, 65, 70]
-    n5_list = [60, 65, 70]
-    n6_list = [50, 55, 60]
-    n7_list = [30, 35, 40]
-    n8_list = [10, 15, 20]
-    n9_list = [0, 5, 10]
-    n10_list = [0, 5, 10]
-    activation_list = ["nn.Tanh"]
-    loss_list = ["nn.MSELoss"]
-    optimizer_list = ["optim.Adam"]
-    lr_list = [0.01]
-
-
     epochs = 100
     batch_list = [1000]
     n1_list = [30]
