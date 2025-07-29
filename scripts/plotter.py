@@ -4,15 +4,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scienceplots
-#import rospkg
+import rospkg
 import sys
 import os
 from math import floor, ceil
 
 show = True
 ygap = 0.4
-#pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
-pack_path = "/home/pain/Desktop/humanlike_moving_robot"
+pack_path = rospkg.RosPack().get_path("humanlike_moving_robot")
 
 def plotter(traj):
     try:
