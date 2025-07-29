@@ -94,7 +94,7 @@ def plotter(traj):
         # plot q7
         fig = plt.figure(figsize=figsize)
         ax1 = fig.add_subplot()
-        ax1.set_position([0.1, 0.54, 0.89, 0.38])
+        ax1.set_position([0.125, 0.54, 0.87, 0.35])
         plt.plot(t, q7, label="$q_7$", linewidth=linewidth, color="black")
         plt.plot(t, q7_NN, label="$q_{7,NN}$", linewidth=linewidth, color="grey", linestyle='dashed')
 
@@ -118,7 +118,7 @@ def plotter(traj):
         
         #plot O_EE
         ax2 = fig.add_subplot()
-        ax2.set_position([0.1, 0.12, 0.89, 0.38])
+        ax2.set_position([0.125, 0.13, 0.87, 0.35])
         plt.plot(t, x, label="$x$", linewidth=linewidth, color='royalblue')
         plt.plot(t, y, label="$y$", linewidth=linewidth, color='limegreen')
         plt.plot(t, z, label="$z$", linewidth=linewidth, color='firebrick')
@@ -145,9 +145,9 @@ def plotter(traj):
         plt.xlabel("t [s]", fontsize=fontsize)
         plt.ylabel("$O_{EE}$ [m]", fontsize=fontsize)
 
-        fig.legend(loc='outside upper center', ncols=8, fontsize=fontsize, handlelength=1, borderpad=0.0, handletextpad=0.4, borderaxespad=0.2, columnspacing=1)
-        fig.text(0.01, 0.88, "(a)", fontsize=fontsize)
-        fig.text(0.01, 0.46, "(b)", fontsize=fontsize)
+        fig.legend(loc='outside upper center', ncols=8, fontsize=fontsize, handlelength=0.9, borderpad=0.0, handletextpad=0.2, borderaxespad=0.2, columnspacing=0.8)
+        fig.text(0.001, 0.87, "\\textbf{(a)}", fontsize=fontsize)
+        fig.text(0.001, 0.46, "\\textbf{(b)}", fontsize=fontsize)
 
         if show:
             plt.show()

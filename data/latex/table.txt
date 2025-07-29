@@ -12,3 +12,5 @@
 	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.305 & 0.043 & 177/177\\   %pnp_4bricks_rev
 	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.321 & 0.042 & 177/177\\   %pnp_4bricks_rev
 	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.353 & 0.076 & 177/177\\   %pnp_4bricks_rev
+	$pnp\_4bricks$ & 0.086 & 1.485 & 0.307 & 0.048 & 169/169\\   %pnp_4bricks
+	$pnp\_4bricks\_rev$ & 0.102 & 1.765 & 0.351 & 0.059 & 177/177\\   %pnp_4bricks_rev

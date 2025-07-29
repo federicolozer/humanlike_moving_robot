@@ -128,17 +128,9 @@ def dijkstra(sol_array):
             q_arrays.append(pnt)
             path += dst
 
-
-        print("---------------------")
-        print(path)
-
-
         if dist == None or path < dist:
             dist = path
             q_array = q_arrays
-
-    print("---------------------")
-    print("Distance = ", dist)
 
     return q_array
 
