@@ -1,20 +1,5 @@
 
-	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.356 & 0.045 & 177/177\\   %pnp_4bricks_rev
-	$pnp\_4bricks\_rot$ & 0.184 & 3.179 & 0.385 & 0.043 & 196/196\\   %pnp_4bricks_rot
-	$pnp\_4bricks\_stack$ & 0.134 & 2.316 & 0.299 & 0.040 & 181/181\\   %pnp_4bricks_stack
-	$pnp\_4bricks\_flip$ & 0.098 & 1.694 & 0.358 & 0.049 & 191/191\\   %pnp_4bricks_flip
-	$follow\_profile$ & 0.211 & 3.647 & 0.589 & 0.068 & 249/326\\   %follow_profile
-	$inspect\_with\_camera$ & 0.144 & 2.484 & 2.743 & 0.264 & 486/595\\   %inspect_with_camera
-	$inspect\_with\_camera$ & 0.144 & 2.484 & 2.806 & 0.490 & 486/595\\   %inspect_with_camera
-	$pnp\_4bricks$ & 0.177 & 3.046 & 0.343 & 0.036 & 169/169\\   %pnp_4bricks
-	$pnp\_4bricks\_stack$ & 0.134 & 2.316 & 0.406 & 0.068 & 181/181\\   %pnp_4bricks_stack
-	$pnp\_4bricks\_stack$ & 0.134 & 2.316 & 0.413 & 0.044 & 181/181\\   %pnp_4bricks_stack
-	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.305 & 0.043 & 177/177\\   %pnp_4bricks_rev
-	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.321 & 0.042 & 177/177\\   %pnp_4bricks_rev
-	$pnp\_4bricks\_rev$ & 0.181 & 3.119 & 0.353 & 0.076 & 177/177\\   %pnp_4bricks_rev
-	$pnp\_4bricks$ & 0.086 & 1.485 & 0.307 & 0.048 & 169/169\\   %pnp_4bricks
-	$pnp\_4bricks\_rev$ & 0.102 & 1.765 & 0.351 & 0.059 & 177/177\\   %pnp_4bricks_rev
-	$pnp\_4bricks$ & 0.086 & 1.485 & 0.295 & 0.042 & 169/169\\   %pnp_4bricks
-	$pnp\_4bricks\_rev$ & 0.102 & 1.765 & 0.302 & 0.036 & 177/177\\   %pnp_4bricks_rev
-	$pnp\_4bricks\_rot$ & 0.148 & 2.554 & 0.342 & 0.044 & 196/196\\   %pnp_4bricks_rot
-	$pnp\_4bricks\_stack$ & 0.076 & 1.305 & 0.393 & 0.044 & 181/181\\   %pnp_4bricks_stack
+	$pnp\_4bricks$ & 0.067 & 1.155 & 0.361 & 0.038 & 169/169\\   %pnp_4bricks
+	$pnp\_4bricks\_rev$ & 0.053 & 0.920 & 0.378 & 0.042 & 177/177\\   %pnp_4bricks_rev
+	$pnp\_4bricks\_rot$ & 0.115 & 1.977 & 0.419 & 0.046 & 196/196\\   %pnp_4bricks_rot
+	$pnp\_4bricks\_stack$ & 0.076 & 1.307 & 0.324 & 0.053 & 181/181\\   %pnp_4bricks_stack
