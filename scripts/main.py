@@ -109,7 +109,6 @@ def optMove(q_array_list, q_actual_array):
 
 
 def dijkstra(sol_array):
-    print("-------dijkstra-----------------")
     q_array = []
     dist = None
     jnt = [0, 1, 2, 3, 4, 5, 6]

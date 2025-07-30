@@ -20,3 +20,8 @@
 	$pnp\_4bricks\_rev$ & 0.073 & 1.261 & 0.408 & 0.046 & 177/177\\   %pnp_4bricks_rev
 	$pnp\_4bricks\_rot$ & 0.061 & 1.047 & 0.438 & 0.057 & 196/196\\   %pnp_4bricks_rot
 	$pnp\_4bricks\_stack$ & 0.067 & 1.159 & 0.396 & 0.050 & 181/181\\   %pnp_4bricks_stack
+	$pnp\_4bricks\_rot$ & 0.061 & 1.047 & 0.487 & 0.084 & 196/196\\   %pnp_4bricks_rot
+	$pnp\_4bricks$ & 0.073 & 1.258 & 0.355 & 0.060 & 169/169\\   %pnp_4bricks
+	$pnp\_4bricks\_rev$ & 0.073 & 1.261 & 0.385 & 0.062 & 177/177\\   %pnp_4bricks_rev
+	$pnp\_4bricks\_rot$ & 0.061 & 1.047 & 0.447 & 0.067 & 196/196\\   %pnp_4bricks_rot
+	$pnp\_4bricks\_stack$ & 0.067 & 1.159 & 0.459 & 0.060 & 181/181\\   %pnp_4bricks_stack
