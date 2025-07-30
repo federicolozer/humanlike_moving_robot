@@ -113,11 +113,11 @@ def solver(cPose):
     segm_q7_elbow = elbow-O_q7
     q7h = np.arccos(np.dot(segm_q7_elbow/np.linalg.norm(segm_q7_elbow), -xAxis))
     
-    ee_frame[0, 3] *= 1.1
-    ee_frame[1, 3] *= 1.1
-    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.1)+base_height
+    ee_frame[0, 3] *= 1.25
+    ee_frame[1, 3] *= 1.25
+    ee_frame[2, 3] = ((ee_frame[2, 3]-base_height)*1.25)+base_height
 
-    q7r =q7h*1.1
+    q7r =q7h*1.15
     q7 = pi/4 - q7r
 
     res = [list(ee_frame[0:3, 0]), list(ee_frame[0:3, 1]), list(ee_frame[0:3, 2]), list(ee_frame[0:3, 3]), q7, t, grip_wid]
